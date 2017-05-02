@@ -9,7 +9,7 @@
 /* Namespaces */
 using namespace std;
 
-/* Function declarations. */
+/* Function declarations */
 void parse_args(int argc, char* argv[]);
 
 /* Main function. */
@@ -32,4 +32,9 @@ void parse_args(int argc, char* argv[]) {
     } else if (strcmp(argv[1], "search") == 0) { /* Search by tag */
         /* argv[2]: tag */
     }
+
+/* For future reference: use getenv("HOME") to get home directory
+ * for writing the tag file. If that doesn't work, use
+ * gwetpwuid(getuid())->pw_dir
+ */
 }
