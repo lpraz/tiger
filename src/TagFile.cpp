@@ -4,26 +4,23 @@
  */
 
 /* Stdlib includes */
+#include <cstdlib>
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
 
+/* Local includes */
+#include "TagFile.hpp"
+
 /* Namespaces */
 using namespace std;
 
-class TagFile {
-    private:
-        char *path;
-    
-    public:
-        TagFile();
-}
-
 /* TagFile constructor. */
 TagFile::TagFile(void) {
-    // Get path of .tiger file
+    // Get path of .tiger file from environment variables
     path = getenv("HOME");
     
+    // If that doesn't work, get it from password directory
     if (path == NULL)
-        path = (*getpwuid(getuid)).pw_dir;
+        path = getpwuid(getuid())->pw_dir;
 }

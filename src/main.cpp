@@ -9,7 +9,7 @@
 /* Namespaces */
 using namespace std;
 
-/* Function declarations */
+/* Function declarations (TODO: move these somewhere else) */
 void parse_args(int argc, char* argv[]);
 
 /* Main function. */
@@ -27,14 +27,17 @@ void parse_args(int argc, char* argv[]) {
                 << "    tag: Add a tag to a file." << endl
                 << "    search: Look up files with a certain tag." << endl;
     } else if (strcmp(argv[1], "tag") == 0) { /* Tag a file */
-        /* argv[2]: file */
-        /* argv[3]: tag */
+        // args after "-t": tags to add
+        // args after "-f": files to add tags to
+        int collectingType;
+        
+        for (int i = 2; i < argc; i++) {
+            if (strcmp(argv[i], "-t") == 0)
+                // set CollectingType using an enum
+            else if (strcmp(argv[i], "-f") == 0)
+                // set CollectingType using an enum
+        }
     } else if (strcmp(argv[1], "search") == 0) { /* Search by tag */
-        /* argv[2]: tag */
+        // argv[2]: tag to search for
     }
-
-/* For future reference: use getenv("HOME") to get home directory
- * for writing the tag file. If that doesn't work, use
- * gwetpwuid(getuid())->pw_dir
- */
 }
