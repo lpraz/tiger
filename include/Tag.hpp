@@ -3,7 +3,7 @@
  * files they belong to.
  */
 
-// Define guard
+/* Define guard */
 #ifndef TAG_HPP
 #define TAG_HPP
 
@@ -15,9 +15,8 @@ class Tag {
     private:
         std::vector<std::string> files;
     public:
-        void addFile(std::string);
+        bool addFile(std::string);
         bool removeFile(std::string);
-        bool isOnFile(std::string);
 };
 
 #endif

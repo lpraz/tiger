@@ -33,9 +33,11 @@ void parse_args(int argc, char* argv[]) {
         
         for (int i = 2; i < argc; i++) {
             if (strcmp(argv[i], "-t") == 0)
-                // set CollectingType using an enum
+                // TODO: set CollectingType using an enum
+                cout << "Switching to tags" << endl;
             else if (strcmp(argv[i], "-f") == 0)
-                // set CollectingType using an enum
+                // TODO: set CollectingType using an enum
+                cout << "Switching to files" << endl;
         }
     } else if (strcmp(argv[1], "search") == 0) { /* Search by tag */
         // argv[2]: tag to search for
