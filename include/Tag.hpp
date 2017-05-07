@@ -17,6 +17,8 @@ class Tag {
     public:
         bool addFile(std::string);
         bool removeFile(std::string);
+        std::vector<std::string>::iterator tagIsOnFile(std::string);
+        std::vector<std::string> getFiles();
 };
 
 #endif
