@@ -10,6 +10,7 @@
 #include <pwd.h>
 
 /* Local includes */
+#include "Tag.hpp"
 #include "TagFile.hpp"
 
 /* Namespaces */
@@ -23,4 +24,9 @@ TagFile::TagFile(void) {
     // If that doesn't work, get it from password directory
     if (path == NULL)
         path = getpwuid(getuid())->pw_dir;
+}
+
+/* TODO: Find a Tag within this TagFile. */
+Tag *TagFile::getTag(std::string name) {
+    return NULL;
 }

@@ -7,12 +7,16 @@
 #ifndef TAGFILE_HPP
 #define TAGFILE_HPP
 
+/* Local includes */
+#include "TagFile.hpp"
+
 class TagFile {
     private:
         char *path;
     
     public:
         TagFile();
+        Tag *getTag(std::string);
 };
 
 #endif

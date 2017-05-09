@@ -14,11 +14,14 @@
 class Tag {
     private:
         std::vector<std::string> files;
+    
     public:
         bool addFile(std::string);
         bool removeFile(std::string);
-        std::vector<std::string>::iterator tagIsOnFile(std::string);
+        std::vector<std::string>::iterator isOnFile(std::string);
         std::vector<std::string> getFiles();
+        static std::vector<Tag> getTagsOnFile(std::string,
+                std::vector<Tag>);
 };
 
 #endif
