@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-/* Local includes */
+/* Include self */
 #include "Tag.hpp"
 
 /* public: */

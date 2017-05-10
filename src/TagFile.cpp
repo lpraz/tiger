@@ -11,6 +11,8 @@
 
 /* Local includes */
 #include "Tag.hpp"
+
+/* Include self */
 #include "TagFile.hpp"
 
 /* Namespaces */
