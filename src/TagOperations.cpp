@@ -5,6 +5,8 @@
  */
 
 /* Stdlib includes */
+#include <cstring>
+#include <iostream>
 #include <vector>
 
 /* Local includes */
@@ -14,10 +16,33 @@
 /* Include self */
 #include "TagOperations.hpp"
 
+/* Namespaces */
+using namespace std;
+
 /* public: */
+
+/* Performs actions depending on the arguments passed to the program. */
+void TagOperations::parse_args(int argc, char* argv[]) {
+    if (argc == 1 || strcmp(argv[1], "help") == 0) {
+        // Show help
+        cout << "tiger is a program for tagging and organizing files."
+                << endl << endl
+                << "Commands:" << endl
+                << "    help: Display this screen." << endl
+                << "    tag: Add a tag to a file." << endl
+                << "    search: Look up files with a certain tag." << endl;
+    } else if (strcmp(argv[1], "tag") == 0) {
+        std::vector<std::string> args(argv + 2, argv + argc);
+        tag(args);
+    } else if (strcmp(argv[1], "search") == 0) {
+        std::vector<std::string> args(argv + 2, argv + argc);
+        search(args);
+    }
+}
+
 /* Responsible for adding tags to files based on command-line arguments. */
-bool TagOperations::tag(std::vector<std::string> args) {
-    std::vector<std::string> tags;
+void TagOperations::tag(std::vector<std::string> args) {
+    std::vector<std::string> tagNames;
     std::vector<std::string> files;
     ArgumentType type;
     
@@ -29,12 +54,22 @@ bool TagOperations::tag(std::vector<std::string> args) {
         else if (*iter == "-f")
             type = FILE_ARG;
         else if (type == TAG_ARG)
-            tags.push_back(*iter);
+            tagNames.push_back(*iter);
         else if (type == FILE_ARG)
             files.push_back(*iter);
     }
     
-    return false; // TODO: not implemented
+    // Fill a vector of needed tags from the tag names
+    std::vector<Tag> tags;
+    
+    // For each tag, apply it to the relevant files
+    for (std::vector<Tag>::iterator tagsIter = tags.begin();
+            tagsIter != tags.end(); tagsIter++)
+        for (std::vector<std::string>::iterator filesIter = files.begin();
+                filesIter != files.end(); filesIter++)
+            (*tagsIter).addFile(*filesIter);
+    
+    // TODO: how to return results of operation?
 }
 
 /* Reponsible for looking up files based on command-line arguments. */

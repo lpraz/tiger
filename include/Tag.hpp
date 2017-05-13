@@ -13,6 +13,7 @@
 
 class Tag {
     private:
+        std::string name;
         std::vector<std::string> files;
     
     public:
@@ -20,7 +21,10 @@ class Tag {
         bool removeFile(std::string);
         std::vector<std::string>::iterator isOnFile(std::string);
         std::vector<std::string> getFiles();
+        
         static std::vector<Tag> getTagsOnFile(std::string,
+                std::vector<Tag>);
+        static std::vector<Tag>::iterator findTag(std::string,
                 std::vector<Tag>);
 };
 

@@ -82,3 +82,16 @@ std::vector<Tag> Tag::getTagsOnFile(std::string path,
     
     return tagsOnFile;
 }
+
+/* Finds and returns a Tag from a list of Tags given its name. */
+std::vector<Tag>::iterator Tag::findTag(std::string query,
+        std::vector<Tag> tags) {
+    // Search for tag by query, return if we find it
+    for (std::vector<Tag>::iterator iter = tags.begin();
+            iter != tags.end(); iter++)
+        if ((*iter).name == query)
+            return iter;
+    
+    // On fail, return "null" (end of the vector)
+    return tags.end();
+}
