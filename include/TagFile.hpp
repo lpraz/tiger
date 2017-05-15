@@ -7,16 +7,22 @@
 #ifndef TAGFILE_HPP
 #define TAGFILE_HPP
 
+/* Stdlib includes */
+#include <fstream>
+#include <unordered_map>
+
 /* Local includes */
 #include "TagFile.hpp"
 
 class TagFile {
     private:
         char *path;
+        std::fstream file;
     
     public:
         TagFile();
-        Tag *getTag(std::string);
+        ~TagFile();
+        std::unordered_map<std::string, Tag> getTags();
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <unordered_map>
 
 /* Local includes */
 #include "Tag.hpp"
@@ -26,9 +27,17 @@ TagFile::TagFile(void) {
     // If that doesn't work, get it from password directory
     if (path == NULL)
         path = getpwuid(getuid())->pw_dir;
+    
+    // Now, open a file with our newfound path
+    file.open(path);
 }
 
-/* TODO: Find a Tag within this TagFile. */
-Tag *TagFile::getTag(std::string name) {
-    return NULL;
+/* TagFile destructor. */
+TagFile::~TagFile(void) {
+    file.close();
+}
+
+/* Gets all the tags in the file and returns them in a hash table. */
+std::unordered_map<std::string, Tag> TagFile::getTags() {
+    
 }

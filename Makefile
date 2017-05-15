@@ -4,7 +4,7 @@
 
 # Compiler options
 CC = g++
-#CFLAGS =
+CFLAGS = -std=c++11
 
 # Directories (build)
 SRCDIR = src
