@@ -23,6 +23,7 @@ class TagFile {
         TagFile();
         ~TagFile();
         std::unordered_map<std::string, Tag> getTags();
+        void saveTags(std::unordered_map<std::string, Tag>);
 };
 
 #endif

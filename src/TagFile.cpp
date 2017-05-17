@@ -5,6 +5,8 @@
 
 /* Stdlib includes */
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
@@ -40,4 +42,20 @@ TagFile::~TagFile(void) {
 /* Gets all the tags in the file and returns them in a hash table. */
 std::unordered_map<std::string, Tag> TagFile::getTags() {
     
+}
+
+/* Saves all tags in the hash table to the file. */
+void TagFile::saveTags(std::unordered_map<std::string, Tag> tags) {
+    for (auto tag = tags.begin(); tag != tags.end(); tag++) {
+        // "<tagname>":
+        file << "\"" << (*tag).first << "\":";
+        
+        //  "<path>",
+        for (auto path = (*tag).second.getFiles().begin();
+                path != (*tag).second.getFiles().end(); path++)
+            file << " \"" << *path << "\",";
+        
+        // Backspace, end with period, new line
+        file << "\b." << endl;
+    }
 }
