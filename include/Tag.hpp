@@ -17,6 +17,10 @@ class Tag {
         std::vector<std::string> files;
     
     public:
+        // TODO: implement these two
+        std::string getName();
+        void setName(std::string);
+        
         bool addFile(std::string);
         bool removeFile(std::string);
         std::vector<std::string>::iterator isOnFile(std::string);

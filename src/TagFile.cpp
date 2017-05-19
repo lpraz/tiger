@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <istream>
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
@@ -36,12 +37,43 @@ TagFile::TagFile(void) {
 
 /* TagFile destructor. */
 TagFile::~TagFile(void) {
+    // Close the file.
     file.close();
 }
 
 /* Gets all the tags in the file and returns them in a hash table. */
 std::unordered_map<std::string, Tag> TagFile::getTags() {
+    std::unordered_map<std::string, Tag> tags;
+    Tag tempTag;
+    std::string tempTagName;
+    std::string tempTagPath;
     
+    while (!file.eof()) {
+        // Discard opening quote of tag name
+        file.get();
+        
+        // Get tempTagName up to closing quote, put into tempTag
+        // TODO: how to stop at closing quote?
+        getline(file, tempTagName);
+        tempTag.setName(tempTagName);
+        
+        // Discard closing quote
+        file.get();
+        
+        // Each tag's file list ends in a period, read up to there
+        while (file.peek() != '.') {
+            // Discard opening quote of file path
+            file.get();
+            
+            // Get tempTagPath up to closing quote, put into tempTag
+            // TODO: how to stop at closing quote?
+            getline(file, tempTagPath);
+            tempTag.addFile(tempTagPath);
+            
+            // Discard closing quote
+            file.get();
+        }
+    }
 }
 
 /* Saves all tags in the hash table to the file. */
