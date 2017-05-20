@@ -17,7 +17,6 @@ class Tag {
         std::vector<std::string> files;
     
     public:
-        // TODO: implement these two
         std::string getName();
         void setName(std::string);
         

@@ -49,11 +49,13 @@ std::unordered_map<std::string, Tag> TagFile::getTags() {
     std::string tempTagPath;
     
     while (!file.eof()) {
+        // Clear tempTagName
+        tempTagName = "";
+        
         // Discard opening quote of tag name
         file.get();
         
         // Get tempTagName up to closing quote, put into tempTag
-        // TODO: how to stop at closing quote?
         getline(file, tempTagName);
         tempTag.setName(tempTagName);
         
@@ -62,17 +64,25 @@ std::unordered_map<std::string, Tag> TagFile::getTags() {
         
         // Each tag's file list ends in a period, read up to there
         while (file.peek() != '.') {
+            // Clear tempTagPath
+            tempTagPath = "";
+            
             // Discard opening quote of file path
             file.get();
             
             // Get tempTagPath up to closing quote, put into tempTag
-            // TODO: how to stop at closing quote?
-            getline(file, tempTagPath);
+            while (file.peek() != '\"')
+                tempTagPath += file.get();
+            
             tempTag.addFile(tempTagPath);
             
             // Discard closing quote
             file.get();
         }
+        
+        // Get/discard to next entry or EOF
+        while (file.peek() != EOF || file.peek() != '\"')
+            file.get();
     }
 }
 

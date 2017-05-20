@@ -13,6 +13,16 @@
 
 /* public: */
 
+/* Retrieves the name of this Tag. */
+std::string Tag::getName(void) {
+    return name;
+}
+
+/* Sets the name of this Tag to the specified string. */
+void Tag::setName(std::string newName) {
+    name = newName;
+}
+
 /* Attempts to add the tag to a file, returns whether it was added
  * (i.e. the tag wasn't already on the file).
  */
