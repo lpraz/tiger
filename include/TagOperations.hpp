@@ -19,6 +19,7 @@ class TagOperations {
         static void parse_args(int argc, char* argv[]);
         static void tag(std::vector<std::string>);
         static std::vector<std::string> search(std::vector<std::string>);
+        static void list();
 };
 
 #endif

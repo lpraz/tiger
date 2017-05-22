@@ -1,4 +1,4 @@
-/* main.cpp
+/* Main.cpp
  * Provides top-level functions for tiger.
  */
 
@@ -10,6 +10,9 @@
 #include "Tag.hpp"
 #include "TagFile.hpp"
 #include "TagOperations.hpp"
+
+/* Include self */
+#include "Main.hpp"
 
 /* Main function. */
 int main(int argc, char* argv[]) {

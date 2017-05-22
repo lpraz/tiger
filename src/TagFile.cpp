@@ -76,8 +76,9 @@ std::unordered_map<std::string, Tag> TagFile::getTags() {
             
             tempTag.addFile(tempTagPath);
             
-            // Discard closing quote
-            file.get();
+            // Discard until next opening quote or period (end of tag)
+            while (file.peek() != '\"' || file.peek() != '.')
+                file.get();
         }
         
         // Get/discard to next entry or EOF

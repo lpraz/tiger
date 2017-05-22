@@ -31,12 +31,16 @@ void TagOperations::parse_args(int argc, char* argv[]) {
                 << "    help: Display this screen." << endl
                 << "    tag: Add a tag to a file." << endl
                 << "    search: Look up files with a certain tag." << endl;
+                << "    list: List all tags, and the files they are "
+                << "attached to." << endl;
     } else if (strcmp(argv[1], "tag") == 0) {
         std::vector<std::string> args(argv + 2, argv + argc);
         tag(args);
     } else if (strcmp(argv[1], "search") == 0) {
         std::vector<std::string> args(argv + 2, argv + argc);
         search(args);
+    } else if (strcmp(argv[1], "list") == 0) {
+        list();
     }
 }
 
@@ -75,6 +79,17 @@ void TagOperations::tag(std::vector<std::string> args) {
 /* Reponsible for looking up files based on command-line arguments. */
 std::vector<std::string> TagOperations::search(
         std::vector<std::string> args) {
+    // For each specified tag...
+    for (auto iter = args.begin(); iter < args.end(); iter++) {
+        
+    }
+    
+    // Placeholder (TODO: not implemented)
     std::vector<std::string> vec;
-    return vec; // TODO: not implemented
+    return vec;
+}
+
+/* Outputs all tags, and the files they are attached to. */
+void TagOperations::list(void) {
+    
 }
