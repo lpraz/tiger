@@ -11,14 +11,12 @@
 #include "TagFile.hpp"
 #include "TagOperations.hpp"
 
-/* Include self */
-#include "Main.hpp"
-
 /* Main function. */
 int main(int argc, char* argv[]) {
     TagFile file;
     
     // Do the expected action based on arguments
+    TagOperations::tagMap = file.getTags();
     TagOperations::parse_args(argc, argv);
     
     return 0;

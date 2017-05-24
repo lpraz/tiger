@@ -77,15 +77,14 @@ void TagOperations::tag(std::vector<std::string> args) {
 }
 
 /* Reponsible for looking up files based on command-line arguments. */
-std::vector<std::string> TagOperations::search(
+std::vector<std::vector<std::string>> TagOperations::search(
         std::vector<std::string> args) {
-    // For each specified tag...
-    for (auto iter = args.begin(); iter < args.end(); iter++) {
-        
-    }
+    std::vector<std::vector<std::string>> results
     
-    // Placeholder (TODO: not implemented)
-    std::vector<std::string> vec;
+    // For each specified tag...
+    for (auto iter = args.begin(); iter < args.end(); iter++)
+        results.push_back(tagMap.at(*iter).files);
+    
     return vec;
 }
 

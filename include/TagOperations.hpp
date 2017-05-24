@@ -9,6 +9,7 @@
 #define TAGOPERATIONS_HPP
 
 /* Stdlib includes */
+#include <unordered_map>
 #include <vector>
 
 /* Local includes */
@@ -16,9 +17,12 @@
 
 class TagOperations {
     public:
+        static std::unordered_map<std::string, Tag> tagMap;
+        
         static void parse_args(int argc, char* argv[]);
         static void tag(std::vector<std::string>);
-        static std::vector<std::string> search(std::vector<std::string>);
+        static std::vector<std::vector<std::string>> search(
+                std::vector<std::string>);
         static void list();
 };
 
