@@ -28,8 +28,16 @@
 int main(int argumentCount, char *argumentValues[]) {
     std::unordered_map<std::string, std::vector<std::string>> tags;
     
+    // Get arguments
     std::vector<std::string> arguments = Tiger::Helpers::convertArguments(
             argumentCount, argumentValues);
-
+    
+    // Get tag file
+    
+    
+    // Act based on arguments
+    
+    
+    // Return OK exit code
     return 0;
 }

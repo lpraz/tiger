@@ -27,8 +27,12 @@ namespace Tiger {
          */
         std::vector<std::string> convertArguments (int argumentCount,
                 char *argumentValues[]) {
-            std::vector<std::string> vec;
-            return vec;
+            std::vector<std::string> arguments;
+            
+            for (int index = 0; index < argumentCount; index++)
+                arguments.push_back(argumentValues[index]);
+            
+            return arguments;
         }
     }
 }
