@@ -6,10 +6,15 @@
  * Header file for the Command class.
  */
 
+// Stdlib includes
+#include <string>
+#include <vector>
+
 namespace Tiger {
+    /**
+     * Represents a command given to tiger.
+     */
     class Command {
-        private:
-        
         public:
             /**
              * Represents the possible actions to be given in a command.
@@ -20,5 +25,13 @@ namespace Tiger {
                 SEARCH,
                 LIST
             };
-    }
+
+        private:
+            Action action;
+            std::vector<std::string> tags;
+            std::vector<std::string> files;
+        
+        public:
+            Command(std::vector<std::string> arguments);
+    };
 }
