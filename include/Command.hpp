@@ -33,5 +33,6 @@ namespace Tiger {
         
         public:
             Command(std::vector<std::string> arguments);
+            Action getAction();
     };
 }
