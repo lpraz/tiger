@@ -75,4 +75,22 @@ namespace Tiger {
     Command::Action Command::getAction(void) {
         return action;
     }
+    
+    /**
+     * Accessor method for the Command::tags field.
+     *
+     * @return The current vector of strings held in Command::tags.
+     */
+    std::vector<std::string> Command::getTags() {
+        return tags;
+    }
+    
+    /**
+     * Accessor method for the Command::files field.
+     *
+     * @return The current vector of strings held in Command::files.
+     */
+    std::vector<std::string> Command::getFiles() {
+        return files;
+    }
 }

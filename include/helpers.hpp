@@ -16,5 +16,6 @@ namespace Tiger {
     namespace Helpers {
         std::vector<std::string> convertArguments(int argumentCount,
                 char *argumentValues[]);
+        void displayHelp();
     }
 }

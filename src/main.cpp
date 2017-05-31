@@ -14,6 +14,7 @@
 #include <vector>
 
 // Local includes
+#include "Command.hpp"
 #include "helpers.hpp"
 
 /**
@@ -32,11 +33,21 @@ int main(int argumentCount, char *argumentValues[]) {
     std::vector<std::string> arguments = Tiger::Helpers::convertArguments(
             argumentCount, argumentValues);
     
+    // Convert arguments to Command object
+    Tiger::Command command(arguments);
+    
     // Get tag file
     
     
     // Act based on arguments
-    
+    switch (command.getAction()) {
+        case Tiger::Command::Action::TAG:
+        case Tiger::Command::Action::SEARCH:
+        case Tiger::Command::Action::LIST:
+        case Tiger::Command::Action::HELP:
+        default:
+            Tiger::Helpers::displayHelp();
+    }
     
     // Return OK exit code
     return 0;
