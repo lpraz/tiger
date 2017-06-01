@@ -36,7 +36,7 @@ int main(int argumentCount, char *argumentValues[]) {
     // Convert arguments to Command object
     Tiger::Command command(arguments);
     
-    // Get tag file
+    // Get tag file, save to hash table
     
     
     // Act based on arguments

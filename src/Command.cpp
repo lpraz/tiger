@@ -8,8 +8,6 @@
 
 // Stdlib includes
 #include <algorithm>
-#include <string>
-#include <vector>
 
 // Include own header
 #include "Command.hpp"
@@ -33,8 +31,10 @@ namespace Tiger {
         
         // If no arguments (other than exec path) given, default to HELP
         iter++;
-        if (iter == arguments.end())
+        if (iter == arguments.end()) {
             action = HELP;
+            return;
+        }
         
         // Otherwise, convert first argument to Action
         std::string actionString = (*iter);

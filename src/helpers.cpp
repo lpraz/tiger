@@ -46,8 +46,8 @@ namespace Tiger {
                     "    help: Display this screen.\n"
                     "    tag: Add a tag to a file.\n"
                     "    search: Look up files with a certain tag.\n"
-                    "    list: Display all tags on your system, and all "
-                    "of the files they are attached to.\n";
+                    "    list: Display all tags on your system, and all\n"
+                    "          of the files they are attached to.\n";
             
             std::cout << helpText;
         }

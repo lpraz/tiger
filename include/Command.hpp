@@ -6,6 +6,9 @@
  * Header file for the Command class.
  */
 
+#ifndef COMMAND_HPP
+#define COMMAND_HPP
+
 // Stdlib includes
 #include <string>
 #include <vector>
@@ -38,3 +41,5 @@ namespace Tiger {
             std::vector<std::string> getFiles();
     };
 }
+
+#endif
