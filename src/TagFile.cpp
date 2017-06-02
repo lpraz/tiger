@@ -6,13 +6,30 @@
  * Defines methods for the TagFile class.
  */
 
-// Stdlib includes
-#include <string>
-#include <unordered_map>
-#include <vector>
-
 // Include own header
 #include "TagFile.hpp"
 
 namespace Tiger {
+    /**
+     * Initializes a TagFile.
+     */
+    TagFile::TagFile() {
+    }
+    
+    /**
+     * Closes a TagFile, and saves any changes to TagFile::tags to disk.
+     */
+    TagFile::~TagFile() {
+    }
+    
+    /**
+     * Accessor method for the TagFile::tags field.
+     *
+     * @returns The current hash table of strings (tags) and vectors of
+     *          strings (files) held in TagFile::tags.
+     */
+    std::unordered_map<std::string, std::vector<std::string>>
+            TagFile::getTags(void) {
+        return tags;
+    }
 }

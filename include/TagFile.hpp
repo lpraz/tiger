@@ -28,8 +28,6 @@ namespace Tiger {
             ~TagFile();
             std::unordered_map<std::string, std::vector<std::string>>
                     getTags(void);
-            void setTags(std::unordered_map<std::string,
-                    std::vector<std::string>> tags);
     };
 }
 
