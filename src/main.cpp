@@ -16,6 +16,7 @@
 // Local includes
 #include "Command.hpp"
 #include "helpers.hpp"
+#include "operations.hpp"
 
 /**
  * Main method.
@@ -46,7 +47,7 @@ int main(int argumentCount, char *argumentValues[]) {
         case Tiger::Command::Action::LIST:
         case Tiger::Command::Action::HELP:
         default:
-            Tiger::Helpers::displayHelp();
+            Tiger::Operations::displayHelp();
     }
     
     // Return OK exit code

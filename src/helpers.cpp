@@ -8,10 +8,7 @@
  * Any helper functions will be placed in the Tiger::Helpers namespace.
  */
 
-// Stdlib includes
-#include <iostream>
-
-// Include self
+// Include own header
 #include "helpers.hpp"
 
 namespace Tiger {
@@ -32,22 +29,6 @@ namespace Tiger {
                 arguments.push_back(argumentValues[index]);
             
             return arguments;
-        }
-        
-        /**
-         * Displays the help for the application and its commands.
-         */
-        void displayHelp(void) {
-            std::string helpText =
-                    "tiger is a program for tagging and organizing files.\n"
-                    "Commands:\n"
-                    "    help: Display this screen.\n"
-                    "    tag: Add a tag to a file.\n"
-                    "    search: Look up files with a certain tag.\n"
-                    "    list: Display all tags on your system, and all\n"
-                    "          of the files they are attached to.\n";
-            
-            std::cout << helpText;
         }
     }
 }
