@@ -14,8 +14,13 @@
 #include <unordered_map>
 #include <vector>
 
+// Local includes
+#include "Command.hpp"
+
 namespace Tiger {
     namespace Operations {
+        void search(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command);
         void displayListOfTags(std::unordered_map<std::string,
                 std::vector<std::string>> tags);
         void displayHelp(void);

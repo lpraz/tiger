@@ -45,6 +45,7 @@ int main(int argumentCount, char *argumentValues[]) {
         case Tiger::Command::Action::TAG:
         case Tiger::Command::Action::SEARCH:
         case Tiger::Command::Action::LIST:
+            Tiger::Operations::displayListOfTags(tags);
         case Tiger::Command::Action::HELP:
         default:
             Tiger::Operations::displayHelp();

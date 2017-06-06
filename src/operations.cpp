@@ -18,9 +18,33 @@
 namespace Tiger {
     namespace Operations {
         /**
+         * Displays a list of all files with given tags, and all tags
+         * attached to given files.
+         * Called by the user with the "search" command.
+         *
+         * @param tags The hash table of tags to search through.
+         * @param command The command object containing the arguments
+         *                to base the search on.
+         */
+        void search(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command) {
+            std::cout << "=== Tags ===\n";
+            for (auto iter : command.getTags()) {
+               std::cout << iter << ":\n";
+            }
+            
+            std::cout << "=== Files ===\n";
+            for (auto iter : command.getFiles()) {
+                
+            }
+        }
+        
+        /**
          * Displays a list of all tags, and all files that have those
          * tags.
          * Called by the user with the "list" command.
+         *
+         * @param tags The hash table of tags to output.
          */
         void displayListOfTags(std::unordered_map<std::string,
                 std::vector<std::string>> tags) {
