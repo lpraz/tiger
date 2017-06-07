@@ -10,6 +10,7 @@
  */
 
 // Stdlib includes
+#include <algorithm>
 #include <iostream>
 
 // Include own header
@@ -29,13 +30,37 @@ namespace Tiger {
         void search(std::unordered_map<std::string,
                 std::vector<std::string>> tags, Tiger::Command command) {
             std::cout << "=== Tags ===\n";
-            for (auto iter : command.getTags()) {
-               std::cout << iter << ":\n";
+            for (auto tag : command.getTags()) {
+                std::cout << tag << ":\n\t";
+                
+                auto tagFiles = tags.find(tag);
+                if (tagFiles != tags.end()) {
+                    for (auto tagFile = tagFiles->second.begin();
+                            tagFile != tagFiles->second.end(); tagFile++) {
+                        if (tagFile != tagFiles->second.begin())
+                            std::cout << ",\n\t";
+                        
+                        std::cout << *tagFile;
+                    }
+                }
             }
             
             std::cout << "=== Files ===\n";
-            for (auto iter : command.getFiles()) {
+            for (auto file : command.getFiles()) {
+                std::cout << file << ":\n\t";
                 
+                bool first = true;
+                for (auto tag : tags) {
+                    if (std::find(tag.second.begin(), tag.second.end(),
+                            file) != tag.second.end()) {
+                        if (first)
+                            first = false;
+                        else
+                            std::cout << ",\n\t";
+                        
+                        std::cout << tag.first;
+                    }
+                }
             }
         }
         
@@ -54,7 +79,7 @@ namespace Tiger {
                 for (auto file = tag.second.begin();
                         file != tag.second.end(); file++) {
                     if (file != tag.second.begin())
-                        std::cout << ",\n";
+                        std::cout << ",\n\t";
                     
                     std::cout << *file;
                 }
