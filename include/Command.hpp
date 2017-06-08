@@ -24,7 +24,8 @@ namespace Tiger {
              */
             enum Action {
                 HELP,
-                TAG,
+                ADD,
+                REMOVE,
                 SEARCH,
                 LIST
             };

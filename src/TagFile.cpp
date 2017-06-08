@@ -46,6 +46,7 @@ namespace Tiger {
      * @param tag The tag to be added.
      * @param file The file to add the tag to.
      */
+    // TODO: is this needed?
     void TagFile::addTagToFile(std::string tag, std::string file) {
         if (tags.find(tag) == tags.end())
             tags[tag] = std::vector<std::string> {file};
@@ -64,6 +65,7 @@ namespace Tiger {
      * @param file The file to remove the tag from.
      * @returns True if the file has the tag, false otherwise.
      */
+    // TODO: is this needed?
     bool TagFile::removeTagFromFile(std::string tag, std::string file) {
         if (tags.find(tag) == tags.end()) {
             auto index = std::remove(tags[tag].begin(), tags[tag].end(),

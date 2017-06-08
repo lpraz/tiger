@@ -6,8 +6,6 @@
  * Provides the top-level functions for tiger.
  */
 
-// TODO: Install Doxygen
-
 // Stdlib includes
 #include <string>
 #include <unordered_map>
@@ -38,12 +36,16 @@ int main(int argumentCount, char *argumentValues[]) {
     Tiger::Command command(arguments);
     
     // Get tag file, save to hash table
-    
+   
     
     // Act based on arguments
     switch (command.getAction()) {
-        case Tiger::Command::Action::TAG:
+        case Tiger::Command::Action::ADD:
+            Tiger::Operations::addTags(tags, command);
+        case Tiger::Command::Action::REMOVE:
+            Tiger::Operations::removeTags(tags, command);
         case Tiger::Command::Action::SEARCH:
+            Tiger::Operations::search(tags, command);
         case Tiger::Command::Action::LIST:
             Tiger::Operations::displayListOfTags(tags);
         case Tiger::Command::Action::HELP:

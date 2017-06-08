@@ -11,6 +11,10 @@ SRCDIR = src
 INCLDIR = include
 BUILDDIR = build
 
+# Documentation/Doxygen stuff
+DOCDIR = doc
+DOXYFILE = Doxyfile
+
 # Directories (install)
 PREFIX = /usr/bin/local
 INSTTARGET = bestfriend
@@ -30,6 +34,7 @@ OBJECTS = $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 # Build binary from objects
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $(TARGET)
+	doxygen $(DOXYFILE)
 
 # Build objects from source files
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
@@ -49,3 +54,9 @@ uninstall:
 .PHONY: clean
 clean:
 	rm -f $(BUILDDIR)/*.o
+	rm -rf $(DOCDIR)/*
+
+# Show todos
+.PHONY: todo
+todo:
+	grep -nr --color=auto "TODO" $(SRCDIR) $(INCLDIR)

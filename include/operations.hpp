@@ -19,6 +19,10 @@
 
 namespace Tiger {
     namespace Operations {
+        void addTags(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command);
+        void removeTags(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command);
         void search(std::unordered_map<std::string,
                 std::vector<std::string>> tags, Tiger::Command command);
         void displayListOfTags(std::unordered_map<std::string,

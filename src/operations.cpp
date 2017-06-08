@@ -19,6 +19,38 @@
 namespace Tiger {
     namespace Operations {
         /**
+         * Adds the specified tags to the specified files.
+         * Called by the user with the "add" command.
+         *
+         * @param tags The hash table of tags to modify.
+         * @param command The command object containing the tags to be
+         *                added, and the files to be tagged.
+         */
+        void addTags(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command) {
+            for (auto file : command.getFiles()) {
+                for (auto tag : command.getTags()) {
+                    if (tags.find(tag) == tags.end())
+                        tags[tag] = std::vector<std::string> {file};
+                    else
+                        tags[tag].push_back(file);
+                }
+            }
+        }
+        
+        /**
+         * Removes the specified tags from the specified files.
+         * Called by the user with the "remove" command.
+         *
+         * @param tags The hash table of tags to modify.
+         * @param command The command object containing the tags to be
+         *                added, and the files to be tagged.
+         */
+        void removeTags(std::unordered_map<std::string,
+                std::vector<std::string>> tags, Tiger::Command command) {
+        }
+        
+        /**
          * Displays a list of all files with given tags, and all tags
          * attached to given files.
          * Called by the user with the "search" command.
