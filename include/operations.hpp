@@ -18,15 +18,24 @@
 #include "Command.hpp"
 
 namespace Tiger {
-    namespace Operations {
-        void addTags(std::unordered_map<std::string,
-                std::vector<std::string>> tags, Tiger::Command command);
-        void removeTags(std::unordered_map<std::string,
-                std::vector<std::string>> tags, Tiger::Command command);
-        void search(std::unordered_map<std::string,
-                std::vector<std::string>> tags, Tiger::Command command);
-        void displayListOfTags(std::unordered_map<std::string,
-                std::vector<std::string>> tags);
-        void displayHelp(void);
-    }
+    class Operations {
+        private:
+            static void addTagToFile(std::unordered_map<std::string,
+                    std::vector<std::string>> tags, std::string tag,
+                    std::string file);
+            static void removeTagFromFile(std::unordered_map<std::string,
+                    std::vector<std::string>> tags, std::string tag,
+                    std::string file);
+        
+        public: 
+            static void addTags(std::unordered_map<std::string,
+                    std::vector<std::string>> tags, Tiger::Command command);
+            static void removeTags(std::unordered_map<std::string,
+                    std::vector<std::string>> tags, Tiger::Command command);
+            static void search(std::unordered_map<std::string,
+                    std::vector<std::string>> tags, Tiger::Command command);
+            static void displayListOfTags(std::unordered_map<std::string,
+                    std::vector<std::string>> tags);
+            static void displayHelp(void);
+    };
 }
