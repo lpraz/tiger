@@ -15,6 +15,7 @@
 #include "Command.hpp"
 #include "helpers.hpp"
 #include "operations.hpp"
+#include "TagFile.hpp"
 
 /**
  * Main method.
@@ -26,6 +27,8 @@
  * @return Exit code for the program (ideally 0).
  */
 int main(int argumentCount, char *argumentValues[]) {
+    // Get tag file, hash table of tags from tag file
+    Tiger::TagFile tagFile;
     std::unordered_map<std::string, std::vector<std::string>> tags;
     
     // Get arguments
@@ -34,9 +37,6 @@ int main(int argumentCount, char *argumentValues[]) {
     
     // Convert arguments to Command object
     Tiger::Command command(arguments);
-    
-    // Get tag file, save to hash table
-   
     
     // Act based on arguments
     switch (command.getAction()) {

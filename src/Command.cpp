@@ -41,8 +41,10 @@ namespace Tiger {
         std::transform(actionString.begin(), actionString.end(),
                 actionString.begin(), ::tolower);
         
-        if (actionString == "tag") {
-            action = TAG;
+        if (actionString == "add") {
+            action = ADD;
+        } else if (actionString == "remove") {
+            action = REMOVE;
         } else if (actionString == "search") {
             action = SEARCH;
         } else if (actionString == "list") {

@@ -10,6 +10,7 @@
 #define TAGFILE_HPP
 
 // Stdlib includes
+#include <fstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -22,6 +23,8 @@ namespace Tiger {
     class TagFile {
         private:
             std::unordered_map<std::string, std::vector<std::string>> tags;
+            std::string homeDirectory;
+            std::fstream tagFile;
         
         public:
             TagFile();

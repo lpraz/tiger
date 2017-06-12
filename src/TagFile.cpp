@@ -17,12 +17,33 @@ namespace Tiger {
      * Initializes a TagFile.
      */
     TagFile::TagFile() {
+        homeDirectory = getenv("HOME");
     }
     
     /**
      * Closes a TagFile, and saves any changes to TagFile::tags to disk.
      */
     TagFile::~TagFile() {
+        bool firstTag = true;
+        
+        for (auto tag : tags) {
+            if (firstTag)
+                firstTag = false;
+            else
+            tagFile << "\n";
+            
+            tagFile << "\"" << tag.first << "\":";
+            bool firstFile = true;
+            
+            for (auto file : tag.second) {
+                if (firstFile)
+                    firstFile = false;
+                else
+                    tagFile << ", ";
+                
+                tagFile << "\"" << file << "\"";
+            }
+        }
     }
     
     /**

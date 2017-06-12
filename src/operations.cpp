@@ -17,6 +17,8 @@
 #include "operations.hpp"
 
 namespace Tiger {
+    // private:
+    
     /**
      * Adds a tag to a file.
      * In terms of the internal operations of the class, it more so
@@ -31,10 +33,14 @@ namespace Tiger {
     void Operations::addTagToFile(std::unordered_map<std::string,
             std::vector<std::string>> tags, std::string tag,
             std::string file) {
-        if (tags.find(tag) == tags.end())
+        if (tags.find(tag) == tags.end()) {
             tags[tag] = std::vector<std::string> {file};
-        else
-            tags[tag].push_back(file);
+        } else {
+            auto filePosition = std::find(tags[tag].begin(),
+                           tags[tag].end(), file);
+            if (filePosition == tags[tag].end())
+                tags[tag].push_back(file);
+        }
     }
     
     /**
@@ -59,6 +65,8 @@ namespace Tiger {
         }
     }
     
+    // public:
+    
     /**
      * Adds the specified tags to the specified files.
      * Called by the user with the "add" command.
@@ -71,10 +79,7 @@ namespace Tiger {
             std::vector<std::string>> tags, Tiger::Command command) {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
-                if (tags.find(tag) == tags.end())
-                    tags[tag] = std::vector<std::string> {file};
-                else // what if it's already there?
-                    tags[tag].push_back(file);
+                addTagToFile(tags, tag, file);
             }
         }
     }
@@ -92,10 +97,7 @@ namespace Tiger {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
                 if (tags.find(tag) != tags.end()) {
-                    auto filePosition = std::find(tags[tag].begin(),
-                           tags[tag].end(), file);
-                    if (filePosition != tags[tag].end())
-                        tags[tag].erase(filePosition);
+                    removeTagFromFile(tags, tag, file);
                 }
             }
         }
