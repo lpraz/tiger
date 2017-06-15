@@ -8,16 +8,59 @@
 
 // Stdlib includes
 #include <algorithm>
+#include <sstream>
 
 // Include own header
 #include "TagFile.hpp"
 
 namespace Tiger {
+    // private:
+    
+    /**
+     * Reads the next string found within a pair of double quotation
+     * marks (").
+     *
+     * @param stream The stream to read from.
+     * @returns The string that was read.
+     */
+    std::string TagFile::readQuotedString(std::istream &stream) {
+        std::stringstream resultStream;
+        char nextChar;
+        
+        while (stream >> nextChar)
+            if (nextChar == '"')
+                break;
+        
+        while (stream >> nextChar) {
+            if (nextChar == '"')
+                break;
+            else
+                resultStream << nextChar;
+        }
+        
+        return resultStream.str();
+    }
+    
+    // public:
+    
     /**
      * Initializes a TagFile.
      */
     TagFile::TagFile() {
         homeDirectory = getenv("HOME");
+        tagFileStream.open(homeDirectory + tagFilePath);
+        
+        std::string currentLine;
+        
+        while (!tagFileStream.eof()) {
+            getline(tagFileStream, currentLine);
+            std::stringstream currentLineStream(currentLine);
+            
+            readQuotedString(tagFileStream); // into key
+            
+            while (tagFileStream.peek() != '\n')
+                readQuotedString(tagFileStream); // into values
+        }
     }
     
     /**
@@ -30,18 +73,18 @@ namespace Tiger {
             if (firstTag)
                 firstTag = false;
             else
-            tagFile << "\n";
+                tagFileStream << "\n";
             
-            tagFile << "\"" << tag.first << "\":";
+            tagFileStream << "\"" << tag.first << "\":";
             bool firstFile = true;
             
             for (auto file : tag.second) {
                 if (firstFile)
                     firstFile = false;
                 else
-                    tagFile << ", ";
+                    tagFileStream << ", ";
                 
-                tagFile << "\"" << file << "\"";
+                tagFileStream << "\"" << file << "\"";
             }
         }
     }
