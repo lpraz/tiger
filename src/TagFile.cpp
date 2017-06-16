@@ -53,13 +53,13 @@ namespace Tiger {
         std::string currentLine;
         
         while (!tagFileStream.eof()) {
-            getline(tagFileStream, currentLine);
-            std::stringstream currentLineStream(currentLine);
-            
-            readQuotedString(tagFileStream); // into key
+            std::string tag = readQuotedString(tagFileStream);
+            std::vector<std::string> files;
             
             while (tagFileStream.peek() != '\n')
-                readQuotedString(tagFileStream); // into values
+                files.push_back(readQuotedString(tagFileStream));
+            
+            tags.insert({tag, files});
         }
     }
     
