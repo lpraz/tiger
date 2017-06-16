@@ -181,12 +181,15 @@ namespace Tiger {
     void Operations::displayHelp(void) {
         std::string helpText =
                 "tiger is a program for tagging and organizing files.\n"
+                "Alternate between specifying tags and files in your\n"
+                "arguments by using -t and -f, respectively."
                 "Commands:\n"
-                "    help: Display this screen.\n"
-                "    tag: Add a tag to a file.\n"
-                "    search: Look up files with a certain tag.\n"
-                "    list: Display all tags on your system, and all\n"
-                "          of the files they are attached to.\n";
+                "\thelp: Display this screen.\n"
+                "\tadd: Add tag(s) to file(s).\n"
+                "\tremove: Remove tag(s) from file(s).\n"
+                "\tsearch: Look up files with a certain tag.\n"
+                "\tlist: Display all tags on your system, and all\n"
+                "\t\tof the files they are attached to.\n";
         
         std::cout << helpText;
     }

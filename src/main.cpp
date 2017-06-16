@@ -42,15 +42,20 @@ int main(int argumentCount, char *argumentValues[]) {
     switch (command.getAction()) {
         case Tiger::Command::Action::ADD:
             Tiger::Operations::addTags(tags, command);
+            break;
         case Tiger::Command::Action::REMOVE:
             Tiger::Operations::removeTags(tags, command);
+            break;
         case Tiger::Command::Action::SEARCH:
             Tiger::Operations::search(tags, command);
+            break;
         case Tiger::Command::Action::LIST:
             Tiger::Operations::displayListOfTags(tags);
+            break;
         case Tiger::Command::Action::HELP:
         default:
             Tiger::Operations::displayHelp();
+            break;
     }
     
     // Return OK exit code
