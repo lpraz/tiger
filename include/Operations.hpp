@@ -21,19 +21,22 @@ namespace Tiger {
     class Operations {
         private:
             static void addTagToFile(std::unordered_map<std::string,
-                    std::vector<std::string>> tags, std::string tag,
+                    std::vector<std::string>>& tags, std::string tag,
                     std::string file);
             static void removeTagFromFile(std::unordered_map<std::string,
-                    std::vector<std::string>> tags, std::string tag,
+                    std::vector<std::string>>& tags, std::string tag,
                     std::string file);
         
         public: 
             static void addTags(std::unordered_map<std::string,
-                    std::vector<std::string>> tags, Tiger::Command command);
+                    std::vector<std::string>>& tags,
+                    Tiger::Command command);
             static void removeTags(std::unordered_map<std::string,
-                    std::vector<std::string>> tags, Tiger::Command command);
+                    std::vector<std::string>>& tags,
+                    Tiger::Command command);
             static void search(std::unordered_map<std::string,
-                    std::vector<std::string>> tags, Tiger::Command command);
+                    std::vector<std::string>> tags,
+                    Tiger::Command command);
             static void displayListOfTags(std::unordered_map<std::string,
                     std::vector<std::string>> tags);
             static void displayHelp(void);

@@ -14,7 +14,7 @@
 #include <iostream>
 
 // Include own header
-#include "operations.hpp"
+#include "Operations.hpp"
 
 namespace Tiger {
     // private:
@@ -31,10 +31,10 @@ namespace Tiger {
      * @param file The file to add the tag to.
      */
     void Operations::addTagToFile(std::unordered_map<std::string,
-            std::vector<std::string>> tags, std::string tag,
+            std::vector<std::string>>& tags, std::string tag,
             std::string file) {
         if (tags.find(tag) == tags.end()) {
-            tags[tag] = std::vector<std::string> {file};
+            tags.insert({tag, std::vector<std::string> {file}});
         } else {
             auto filePosition = std::find(tags[tag].begin(),
                            tags[tag].end(), file);
@@ -55,7 +55,7 @@ namespace Tiger {
      * @param file The file to remove the tag from.
      */
     void Operations::removeTagFromFile(std::unordered_map<std::string,
-            std::vector<std::string>> tags, std::string tag,
+            std::vector<std::string>>& tags, std::string tag,
             std::string file) {
         if (tags.find(tag) == tags.end()) {
             auto index = std::remove(tags[tag].begin(), tags[tag].end(),
@@ -76,7 +76,7 @@ namespace Tiger {
      *                added, and the files to be tagged.
      */
     void Operations::addTags(std::unordered_map<std::string,
-            std::vector<std::string>> tags, Tiger::Command command) {
+            std::vector<std::string>>& tags, Tiger::Command command) {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
                 addTagToFile(tags, tag, file);
@@ -93,7 +93,7 @@ namespace Tiger {
      *                added, and the files to be tagged.
      */
     void Operations::removeTags(std::unordered_map<std::string,
-            std::vector<std::string>> tags, Tiger::Command command) {
+            std::vector<std::string>>& tags, Tiger::Command command) {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
                 if (tags.find(tag) != tags.end()) {

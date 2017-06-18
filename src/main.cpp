@@ -14,7 +14,7 @@
 // Local includes
 #include "Command.hpp"
 #include "helpers.hpp"
-#include "operations.hpp"
+#include "Operations.hpp"
 #include "TagFile.hpp"
 
 /**
@@ -29,7 +29,8 @@
 int main(int argumentCount, char *argumentValues[]) {
     // Get tag file, hash table of tags from tag file
     Tiger::TagFile tagFile;
-    std::unordered_map<std::string, std::vector<std::string>> tags;
+    std::unordered_map<std::string, std::vector<std::string>> tags =
+        tagFile.getTags();
     
     // Get arguments
     std::vector<std::string> arguments = Tiger::Helpers::convertArguments(

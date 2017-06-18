@@ -8,6 +8,7 @@
 
 // Stdlib includes
 #include <algorithm>
+#include <iostream>
 #include <sstream>
 
 // Include own header
@@ -97,7 +98,7 @@ namespace Tiger {
      * @returns The current hash table of strings (tags) and vectors of
      *          strings (files) held in TagFile::tags.
      */
-    std::unordered_map<std::string, std::vector<std::string>>
+    std::unordered_map<std::string, std::vector<std::string>>&
             TagFile::getTags(void) {
         return tags;
     }

@@ -32,7 +32,7 @@ namespace Tiger {
         public:
             TagFile();
             ~TagFile();
-            std::unordered_map<std::string, std::vector<std::string>>
+            std::unordered_map<std::string, std::vector<std::string>>&
                     getTags(void);
     };
 }
