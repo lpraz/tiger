@@ -23,13 +23,12 @@ namespace Tiger {
     class TagFile {
         private:
             const std::string tagFilePath = "/.tiger";
-            std::unordered_map<std::string, std::vector<std::string>> tags;
             std::string homeDirectory;
-            std::fstream tagFileStream;
             
             std::string readQuotedString(std::istream &stream);
         
         public:
+            std::unordered_map<std::string, std::vector<std::string>> tags;
             TagFile();
             ~TagFile();
             std::unordered_map<std::string, std::vector<std::string>>&

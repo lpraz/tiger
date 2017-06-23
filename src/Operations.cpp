@@ -182,7 +182,7 @@ namespace Tiger {
         std::string helpText =
                 "tiger is a program for tagging and organizing files.\n"
                 "Alternate between specifying tags and files in your\n"
-                "arguments by using -t and -f, respectively."
+                "arguments by using -t and -f, respectively.\n"
                 "Commands:\n"
                 "\thelp: Display this screen.\n"
                 "\tadd: Add tag(s) to file(s).\n"

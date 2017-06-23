@@ -26,11 +26,12 @@
  *                       passed to tiger.
  * @return Exit code for the program (ideally 0).
  */
+
 int main(int argumentCount, char *argumentValues[]) {
     // Get tag file, hash table of tags from tag file
     Tiger::TagFile tagFile;
     std::unordered_map<std::string, std::vector<std::string>> tags =
-        tagFile.getTags();
+        tagFile.tags;
     
     // Get arguments
     std::vector<std::string> arguments = Tiger::Helpers::convertArguments(
