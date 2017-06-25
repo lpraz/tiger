@@ -30,8 +30,8 @@
 int main(int argumentCount, char *argumentValues[]) {
     // Get tag file, hash table of tags from tag file
     Tiger::TagFile tagFile;
-    std::unordered_map<std::string, std::vector<std::string>> tags =
-        tagFile.tags;
+    std::unordered_map<std::string, std::vector<std::string>>& tags =
+        tagFile.getTags();
     
     // Get arguments
     std::vector<std::string> arguments = Tiger::Helpers::convertArguments(
@@ -60,6 +60,7 @@ int main(int argumentCount, char *argumentValues[]) {
             break;
     }
     
-    // Return OK exit code
+    // Write changes to tag file, return OK exit code
+    tagFile.close();
     return 0;
 }

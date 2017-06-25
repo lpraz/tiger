@@ -24,7 +24,7 @@ namespace Tiger {
      * @param stream The stream to read from.
      * @returns The string that was read.
      */
-    std::string TagFile::readQuotedString(std::istream &stream) {
+    std::string TagFile::readQuotedString(std::istream& stream) {
         std::stringstream resultStream;
         char nextChar;
         
@@ -48,30 +48,29 @@ namespace Tiger {
      * Initializes a TagFile.
      */
     TagFile::TagFile() {
+        // TODO: fix infinite loop when reading non-empty file here
         std::ifstream tagFileInputStream;
         homeDirectory = getenv("HOME");
         tagFileInputStream.open(homeDirectory + tagFilePath);
         
-        std::string currentLine;
-        
-        if (tagFileInputStream.good()) {
-            while (!tagFileInputStream.eof()) {
-                std::string tag = readQuotedString(tagFileInputStream);
-                std::vector<std::string> files;
-                
-                // TODO: infinite loop here
-                while (tagFileInputStream.peek() != '\n')
-                    files.push_back(readQuotedString(tagFileInputStream));
-                
-                tags.insert({tag, files});
-            }
+        while (true) {
+            std::string tag = readQuotedString(tagFileInputStream);
+            std::vector<std::string> files;
+            
+            while (tagFileInputStream.peek() != '\n')
+                files.push_back(readQuotedString(tagFileInputStream));
+            
+            tags.insert({tag, files});
+            
+            if (tagFileInputStream.peek() == EOF)
+                break;
         }
     }
     
     /**
      * Closes a TagFile, and saves any changes to TagFile::tags to disk.
      */
-    TagFile::~TagFile() {
+    void TagFile::close() {
         std::ofstream tagFileOutputStream;
         tagFileOutputStream.open(homeDirectory + tagFilePath);
         
@@ -90,7 +89,7 @@ namespace Tiger {
                 if (firstFile)
                     firstFile = false;
                 else
-                    tagFileOutputStream << ", ";
+                    tagFileOutputStream << ",";
                 
                 tagFileOutputStream << "\"" << file << "\"";
             }
