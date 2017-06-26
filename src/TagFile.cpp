@@ -25,6 +25,7 @@ namespace Tiger {
      * @returns The string that was read.
      */
     std::string TagFile::readQuotedString(std::istream& stream) {
+        // TODO: ignores spaces in result?
         std::stringstream resultStream;
         char nextChar;
         
@@ -45,7 +46,8 @@ namespace Tiger {
     // public:
     
     /**
-     * Initializes a TagFile.
+     * Initializes (constructs) a TagFile by reading its contents from
+     * disk, if they exist.
      */
     TagFile::TagFile() {
         // TODO: fix infinite loop when reading non-empty file here
@@ -53,9 +55,13 @@ namespace Tiger {
         homeDirectory = getenv("HOME");
         tagFileInputStream.open(homeDirectory + tagFilePath);
         
+        if (!tagFileInputStream.good())
+            return;
+        
         while (true) {
             std::string tag = readQuotedString(tagFileInputStream);
             std::vector<std::string> files;
+            std::cout << "ayy";
             
             while (tagFileInputStream.peek() != '\n')
                 files.push_back(readQuotedString(tagFileInputStream));
@@ -68,7 +74,7 @@ namespace Tiger {
     }
     
     /**
-     * Closes a TagFile, and saves any changes to TagFile::tags to disk.
+     * Saves any changes to TagFile::tags to disk.
      */
     void TagFile::close() {
         std::ofstream tagFileOutputStream;

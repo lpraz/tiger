@@ -44,9 +44,11 @@ int main(int argumentCount, char *argumentValues[]) {
     switch (command.getAction()) {
         case Tiger::Command::Action::ADD:
             Tiger::Operations::addTags(tags, command);
+            tagFile.close();
             break;
         case Tiger::Command::Action::REMOVE:
             Tiger::Operations::removeTags(tags, command);
+            tagFile.close();
             break;
         case Tiger::Command::Action::SEARCH:
             Tiger::Operations::search(tags, command);
@@ -61,6 +63,5 @@ int main(int argumentCount, char *argumentValues[]) {
     }
     
     // Write changes to tag file, return OK exit code
-    tagFile.close();
     return 0;
 }
