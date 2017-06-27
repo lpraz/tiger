@@ -21,11 +21,11 @@ namespace Tiger {
      * Reads the next string found within a pair of double quotation
      * marks (").
      *
-     * @param stream The stream to read from.
+     * @param stream The stream to read from. Needs std::noskipws to
+     *               not ignore whitespace.
      * @returns The string that was read.
      */
     std::string TagFile::readQuotedString(std::istream& stream) {
-        // TODO: ignores spaces in result?
         std::stringstream resultStream;
         char nextChar;
         
@@ -54,6 +54,7 @@ namespace Tiger {
         std::ifstream tagFileInputStream;
         homeDirectory = getenv("HOME");
         tagFileInputStream.open(homeDirectory + tagFilePath);
+        tagFileInputStream >> std::noskipws;
         
         if (!tagFileInputStream.good())
             return;
