@@ -19,13 +19,13 @@ namespace Tiger {
     
     /**
      * Reads the next string found within a pair of double quotation
-     * marks (").
+     * marks ("), taking whitespace into account.
      *
-     * @param stream The stream to read from. Needs std::noskipws to
-     *               not ignore whitespace.
+     * @param stream The stream to read from.
      * @returns The string that was read.
      */
     std::string TagFile::readQuotedString(std::istream& stream) {
+        stream >> std::noskipws;
         std::stringstream resultStream;
         char nextChar;
         
@@ -50,7 +50,7 @@ namespace Tiger {
      * disk, if they exist.
      */
     TagFile::TagFile() {
-        // TODO: fix infinite loop when reading non-empty file here
+        // TODO: actually read the results into the dictionary
         std::ifstream tagFileInputStream;
         homeDirectory = getenv("HOME");
         tagFileInputStream.open(homeDirectory + tagFilePath);
@@ -59,18 +59,14 @@ namespace Tiger {
         if (!tagFileInputStream.good())
             return;
         
-        while (true) {
+        while (tagFileInputStream.eof()) {
             std::string tag = readQuotedString(tagFileInputStream);
             std::vector<std::string> files;
-            std::cout << "ayy";
             
             while (tagFileInputStream.peek() != '\n')
                 files.push_back(readQuotedString(tagFileInputStream));
             
             tags.insert({tag, files});
-            
-            if (tagFileInputStream.peek() == EOF)
-                break;
         }
     }
     

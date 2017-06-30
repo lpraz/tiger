@@ -1,0 +1,2 @@
+g++ -std=c++11 -I include -c -o build/TagFile.o src/TagFile.cpp
+Makefile:41: recipe for target 'build/TagFile.o' failed
