@@ -17,8 +17,6 @@
 #include "Operations.hpp"
 
 namespace Tiger {
-    // private:
-    
     /**
      * Adds a tag to a file.
      * In terms of the internal operations of the class, it more so
@@ -26,20 +24,20 @@ namespace Tiger {
      * If the tag doesn't exist, it will be added first, then the file
      * added to its list.
      *
-     * @param tags The hash table of tags to modify.
+     * @param tagDict The hash table of tags to modify.
      * @param tag The tag to be added.
      * @param file The file to add the tag to.
      */
     void Operations::addTagToFile(std::unordered_map<std::string,
-            std::vector<std::string>>& tags, std::string tag,
+            std::vector<std::string>>& tagDict, std::string tag,
             std::string file) {
-        if (tags.find(tag) == tags.end()) {
-            tags.insert({tag, std::vector<std::string> {file}});
+        if (tagDict.find(tag) == tagDict.end()) {
+            tagDict.insert({tag, std::vector<std::string> {file}});
         } else {
-            auto filePosition = std::find(tags[tag].begin(),
-                           tags[tag].end(), file);
-            if (filePosition == tags[tag].end())
-                tags[tag].push_back(file);
+            auto filePosition = std::find(tagDict[tag].begin(),
+                    tagDict[tag].end(), file);
+            if (filePosition == tagDict[tag].end())
+                tagDict[tag].push_back(file);
         }
     }
     
@@ -50,36 +48,34 @@ namespace Tiger {
      * difference. If the tag would have no more files after having
      * the file removed, it will be deleted.
      *
-     * @param tags The hash table of tags to modify.
+     * @param tagDict The hash table of tags to modify.
      * @param tag The tag to be removed.
      * @param file The file to remove the tag from.
      */
     void Operations::removeTagFromFile(std::unordered_map<std::string,
-            std::vector<std::string>>& tags, std::string tag,
+            std::vector<std::string>>& tagDict, std::string tag,
             std::string file) {
-        if (tags.find(tag) == tags.end()) {
-            auto index = std::remove(tags[tag].begin(), tags[tag].end(),
-                    file);
-            if (index != tags[tag].end())
-                tags[tag].erase(index);
+        if (tagDict.find(tag) == tagDict.end()) {
+            auto index = std::remove(tagDict[tag].begin(),
+                    tagDict[tag].end(), file);
+            if (index != tagDict[tag].end())
+                tagDict[tag].erase(index);
         }
     }
-    
-    // public:
     
     /**
      * Adds the specified tags to the specified files.
      * Called by the user with the "add" command.
      *
-     * @param tags The hash table of tags to modify.
+     * @param tagDict The hash table of tags to modify.
      * @param command The command object containing the tags to be
      *                added, and the files to be tagged.
      */
     void Operations::addTags(std::unordered_map<std::string,
-            std::vector<std::string>>& tags, Tiger::Command command) {
+            std::vector<std::string>>& tagDict, Tiger::Command command) {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
-                addTagToFile(tags, tag, file);
+                addTagToFile(tagDict, tag, file);
             }
         }
     }
@@ -88,16 +84,16 @@ namespace Tiger {
      * Removes the specified tags from the specified files.
      * Called by the user with the "remove" command.
      *
-     * @param tags The hash table of tags to modify.
+     * @param tagDict The hash table of tags to modify.
      * @param command The command object containing the tags to be
      *                added, and the files to be tagged.
      */
     void Operations::removeTags(std::unordered_map<std::string,
-            std::vector<std::string>>& tags, Tiger::Command command) {
+            std::vector<std::string>>& tagDict, Tiger::Command command) {
         for (auto file : command.getFiles()) {
             for (auto tag : command.getTags()) {
-                if (tags.find(tag) != tags.end()) {
-                    removeTagFromFile(tags, tag, file);
+                if (tagDict.find(tag) != tagDict.end()) {
+                    removeTagFromFile(tagDict, tag, file);
                 }
             }
         }
@@ -108,18 +104,18 @@ namespace Tiger {
      * attached to given files.
      * Called by the user with the "search" command.
      *
-     * @param tags The hash table of tags to search through.
+     * @param tagDict The hash table of tags to search through.
      * @param command The command object containing the arguments
      *                to base the search on.
      */
     void Operations::search(std::unordered_map<std::string,
-            std::vector<std::string>> tags, Tiger::Command command) {
+            std::vector<std::string>> tagDict, Tiger::Command command) {
         std::cout << "=== Tags ===\n";
         for (auto tag : command.getTags()) {
             std::cout << tag << ":\n\t";
             
-            auto tagFiles = tags.find(tag);
-            if (tagFiles != tags.end()) {
+            auto tagFiles = tagDict.find(tag);
+            if (tagFiles != tagDict.end()) {
                 for (auto tagFile = tagFiles->second.begin();
                         tagFile != tagFiles->second.end(); tagFile++) {
                     if (tagFile != tagFiles->second.begin())
@@ -135,7 +131,7 @@ namespace Tiger {
             std::cout << file << ":\n\t";
             
             bool first = true;
-            for (auto tag : tags) {
+            for (auto tag : tagDict) {
                 if (std::find(tag.second.begin(), tag.second.end(),
                         file) != tag.second.end()) {
                     if (first)
@@ -154,11 +150,11 @@ namespace Tiger {
      * tags.
      * Called by the user with the "list" command.
      *
-     * @param tags The hash table of tags to output.
+     * @param tagDict The hash table of tags to output.
      */
     void Operations::displayListOfTags(std::unordered_map<std::string,
-            std::vector<std::string>> tags) {
-        for (auto tag : tags) {
+            std::vector<std::string>> tagDict) {
+        for (auto tag : tagDict) {
             std::cout << tag.first << ":\n\t";
             
             for (auto file = tag.second.begin();

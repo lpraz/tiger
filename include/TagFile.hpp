@@ -24,14 +24,14 @@ namespace Tiger {
         private:
             const std::string tagFilePath = "/.tiger";
             std::string homeDirectory;
-            std::unordered_map<std::string, std::vector<std::string>> tags;
+            std::unordered_map<std::string, std::vector<std::string>>
+                    tagDict;
             
             std::string readQuotedString(std::istream &stream);
         
         public:
             TagFile();
             void close();
-            //~TagFile();
             std::unordered_map<std::string, std::vector<std::string>>&
                     getTags(void);
     };

@@ -30,7 +30,7 @@
 int main(int argumentCount, char *argumentValues[]) {
     // Get tag file, hash table of tags from tag file
     Tiger::TagFile tagFile;
-    std::unordered_map<std::string, std::vector<std::string>>& tags =
+    std::unordered_map<std::string, std::vector<std::string>>& tagDict =
         tagFile.getTags();
     
     // Get arguments
@@ -43,18 +43,18 @@ int main(int argumentCount, char *argumentValues[]) {
     // Act based on arguments
     switch (command.getAction()) {
         case Tiger::Command::Action::ADD:
-            Tiger::Operations::addTags(tags, command);
+            Tiger::Operations::addTags(tagDict, command);
             tagFile.close();
             break;
         case Tiger::Command::Action::REMOVE:
-            Tiger::Operations::removeTags(tags, command);
+            Tiger::Operations::removeTags(tagDict, command);
             tagFile.close();
             break;
         case Tiger::Command::Action::SEARCH:
-            Tiger::Operations::search(tags, command);
+            Tiger::Operations::search(tagDict, command);
             break;
         case Tiger::Command::Action::LIST:
-            Tiger::Operations::displayListOfTags(tags);
+            Tiger::Operations::displayListOfTags(tagDict);
             break;
         case Tiger::Command::Action::HELP:
         default:

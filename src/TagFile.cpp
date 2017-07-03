@@ -11,6 +11,9 @@
 #include <iostream>
 #include <sstream>
 
+// Local includes
+#include "Operations.hpp"
+
 // Include own header
 #include "TagFile.hpp"
 
@@ -66,7 +69,7 @@ namespace Tiger {
             while (tagFileInputStream.peek() != '\n')
                 files.push_back(readQuotedString(tagFileInputStream));
             
-            tags.insert({tag, files});
+            tagDict.insert({tag, files});
         }
     }
     
@@ -79,7 +82,7 @@ namespace Tiger {
         
         bool firstTag = true;
         
-        for (auto tag : tags) {
+        for (auto tag : tagDict) {
             if (firstTag)
                 firstTag = false;
             else
@@ -103,10 +106,10 @@ namespace Tiger {
      * Accessor method for the TagFile::tags field.
      *
      * @returns The current hash table of strings (tags) and vectors of
-     *          strings (files) held in TagFile::tags.
+     *          strings (files) held in TagFile::tagDict.
      */
     std::unordered_map<std::string, std::vector<std::string>>&
             TagFile::getTags(void) {
-        return tags;
+        return tagDict;
     }
 }
