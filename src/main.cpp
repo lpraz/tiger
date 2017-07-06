@@ -43,15 +43,18 @@ int main(int argumentCount, char *argumentValues[]) {
     // Act based on arguments
     switch (command.getAction()) {
         case Tiger::Command::Action::ADD:
-            Tiger::Operations::addTags(tagDict, command);
+            Tiger::Operations::addTags(tagDict, command.getTags(),
+                    command.getFiles());
             tagFile.close();
             break;
         case Tiger::Command::Action::REMOVE:
-            Tiger::Operations::removeTags(tagDict, command);
+            Tiger::Operations::removeTags(tagDict, command.getTags(),
+                    command.getFiles());
             tagFile.close();
             break;
         case Tiger::Command::Action::SEARCH:
-            Tiger::Operations::search(tagDict, command);
+            Tiger::Operations::search(tagDict, command.getTags(),
+                    command.getFiles());
             break;
         case Tiger::Command::Action::LIST:
             Tiger::Operations::displayListOfTags(tagDict);

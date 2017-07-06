@@ -72,9 +72,10 @@ namespace Tiger {
      *                added, and the files to be tagged.
      */
     void Operations::addTags(std::unordered_map<std::string,
-            std::vector<std::string>>& tagDict, Tiger::Command command) {
-        for (auto file : command.getFiles()) {
-            for (auto tag : command.getTags()) {
+            std::vector<std::string>>& tagDict, std::vector<std::string> tags,
+            std::vector<std::string> files) {
+        for (auto file : files) {
+            for (auto tag : tags) {
                 addTagToFile(tagDict, tag, file);
             }
         }
@@ -89,9 +90,10 @@ namespace Tiger {
      *                added, and the files to be tagged.
      */
     void Operations::removeTags(std::unordered_map<std::string,
-            std::vector<std::string>>& tagDict, Tiger::Command command) {
-        for (auto file : command.getFiles()) {
-            for (auto tag : command.getTags()) {
+            std::vector<std::string>>& tagDict, std::vector<std::string> tags,
+            std::vector<std::string> files) {
+        for (auto file : files) {
+            for (auto tag : tags) {
                 if (tagDict.find(tag) != tagDict.end()) {
                     removeTagFromFile(tagDict, tag, file);
                 }
@@ -109,9 +111,10 @@ namespace Tiger {
      *                to base the search on.
      */
     void Operations::search(std::unordered_map<std::string,
-            std::vector<std::string>> tagDict, Tiger::Command command) {
+            std::vector<std::string>> tagDict, std::vector<std::string> tags,
+            std::vector<std::string> files) {
         std::cout << "=== Tags ===\n";
-        for (auto tag : command.getTags()) {
+        for (auto tag : tags) {
             std::cout << tag << ":\n\t";
             
             auto tagFiles = tagDict.find(tag);
@@ -127,7 +130,7 @@ namespace Tiger {
         }
         
         std::cout << "=== Files ===\n";
-        for (auto file : command.getFiles()) {
+        for (auto file : files) {
             std::cout << file << ":\n\t";
             
             bool first = true;

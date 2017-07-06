@@ -20,10 +20,10 @@
 namespace Tiger {
     class Operations {
         private:
-            static void addTagToFile(std::unordered_map<std::string,
+           static void addTagToFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
                     std::string file);
-            static void removeTagFromFile(std::unordered_map<std::string,
+           static void removeTagFromFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
                     std::string file);
         
@@ -31,13 +31,16 @@ namespace Tiger {
             // TODO: not take a Command, but vectors instead
             static void addTags(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
-                    Tiger::Command command);
+                    std::vector<std::string> tags,
+                    std::vector<std::string> files);
             static void removeTags(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
-                    Tiger::Command command);
+                    std::vector<std::string> tags,
+                    std::vector<std::string> files);
             static void search(std::unordered_map<std::string,
                     std::vector<std::string>> tagDict,
-                    Tiger::Command command);
+                    std::vector<std::string> tags,
+                    std::vector<std::string> files);
             static void displayListOfTags(std::unordered_map<std::string,
                     std::vector<std::string>> tagDict);
             static void displayHelp(void);

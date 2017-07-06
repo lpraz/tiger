@@ -53,7 +53,6 @@ namespace Tiger {
      * disk, if they exist.
      */
     TagFile::TagFile() {
-        // TODO: actually read the results into the dictionary
         std::ifstream tagFileInputStream;
         homeDirectory = getenv("HOME");
         tagFileInputStream.open(homeDirectory + tagFilePath);
@@ -62,7 +61,8 @@ namespace Tiger {
         if (!tagFileInputStream.good())
             return;
         
-        while (tagFileInputStream.eof()) {
+        // TODO: actually stop infinite loop when reading non-empty file here
+        while (!tagFileInputStream.eof()) {
             std::string tag = readQuotedString(tagFileInputStream);
             std::vector<std::string> files;
             
