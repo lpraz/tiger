@@ -32,7 +32,7 @@ namespace Tiger {
         std::stringstream resultStream;
         char nextChar;
         
-        while (stream >> nextChar)
+        while (stream >> nextChar != '"')
             if (nextChar == '"')
                 break;
         
@@ -61,12 +61,13 @@ namespace Tiger {
         if (!tagFileInputStream.good())
             return;
         
-        // TODO: actually stop infinite loop when reading non-empty file here
-        while (!tagFileInputStream.eof()) {
+        // TODO: eliminate the null string tag
+        while (tagFileInputStream.good()) {
             std::string tag = readQuotedString(tagFileInputStream);
             std::vector<std::string> files;
             
-            while (tagFileInputStream.peek() != '\n')
+            while (tagFileInputStream.peek() != '\n' &&
+                    tagFileInputStream.good())
                 files.push_back(readQuotedString(tagFileInputStream));
             
             tagDict.insert({tag, files});
