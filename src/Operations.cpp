@@ -92,6 +92,7 @@ namespace Tiger {
     void Operations::removeTags(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
             std::vector<std::string> files) {
+        // TODO: just plain-ol' doesn't work
         for (auto file : files) {
             for (auto tag : tags) {
                 if (tagDict.find(tag) != tagDict.end()) {
@@ -146,6 +147,8 @@ namespace Tiger {
                 }
             }
         }
+        
+        std::cout << "\n";
     }
     
     /**
