@@ -55,11 +55,16 @@ namespace Tiger {
     void Operations::removeTagFromFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
             std::string file) {
-        if (tagDict.find(tag) == tagDict.end()) {
+        if (tagDict.find(tag) != tagDict.end()) {
             auto index = std::remove(tagDict[tag].begin(),
                     tagDict[tag].end(), file);
-            if (index != tagDict[tag].end())
+            
+            if (index != tagDict[tag].end()) {
                 tagDict[tag].erase(index);
+                
+                if (tagDict[tag].size() == 0)
+                    tagDict.erase(tag);
+            }
         }
     }
     
@@ -92,12 +97,9 @@ namespace Tiger {
     void Operations::removeTags(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
             std::vector<std::string> files) {
-        // TODO: just plain-ol' doesn't work
         for (auto file : files) {
             for (auto tag : tags) {
-                if (tagDict.find(tag) != tagDict.end()) {
-                    removeTagFromFile(tagDict, tag, file);
-                }
+                removeTagFromFile(tagDict, tag, file);
             }
         }
     }
