@@ -18,6 +18,23 @@
 
 namespace Tiger {
     /**
+     * Converts a "short" file path to a full one, based on a current
+     * working directory.
+     *
+     * @param shortPath The short file path.
+     * @param workingDir The current working directory to base the
+     *                   conversion on.
+     * @return The resulting full file path.
+     */
+    std::string Operations::toFullPath(std::string shortPath,
+            std::string workingDir) {
+        std::string fullPath;
+        // TODO: flesh this out
+        fullPath = workingDir + "/" + shortPath;
+        return fullPath;
+    }
+    
+    /**
      * Adds a tag to a file.
      * In terms of the internal operations of the class, it more so
      * adds a file to a tag, but the end-user should see no difference.
@@ -30,7 +47,7 @@ namespace Tiger {
      */
     void Operations::addTagToFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
-            std::string file) {
+            std::string file, std::string workingDir) {
         if (tagDict.find(tag) == tagDict.end()) {
             tagDict.insert({tag, std::vector<std::string> {file}});
         } else {
@@ -54,7 +71,7 @@ namespace Tiger {
      */
     void Operations::removeTagFromFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
-            std::string file) {
+            std::string file, std::string workingDir) {
         if (tagDict.find(tag) != tagDict.end()) {
             auto index = std::remove(tagDict[tag].begin(),
                     tagDict[tag].end(), file);
@@ -78,10 +95,10 @@ namespace Tiger {
      */
     void Operations::addTags(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
-            std::vector<std::string> files) {
+            std::vector<std::string> files, std::string workingDir) {
         for (auto file : files) {
             for (auto tag : tags) {
-                addTagToFile(tagDict, tag, file);
+                addTagToFile(tagDict, tag, file, workingDir);
             }
         }
     }
@@ -96,10 +113,10 @@ namespace Tiger {
      */
     void Operations::removeTags(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
-            std::vector<std::string> files) {
+            std::vector<std::string> files, std::string workingDir) {
         for (auto file : files) {
             for (auto tag : tags) {
-                removeTagFromFile(tagDict, tag, file);
+                removeTagFromFile(tagDict, tag, file, workingDir);
             }
         }
     }

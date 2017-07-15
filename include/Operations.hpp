@@ -20,23 +20,24 @@
 namespace Tiger {
     class Operations {
         private:
-           static void addTagToFile(std::unordered_map<std::string,
+            static std::string toFullPath(std::string shortPath,
+                    std::string workingDir);
+            static void addTagToFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
-                    std::string file);
-           static void removeTagFromFile(std::unordered_map<std::string,
+                    std::string file, std::string workingDir);
+            static void removeTagFromFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
-                    std::string file);
+                    std::string file, std::string workingDir);
         
         public:
-            // TODO: not take a Command, but vectors instead
             static void addTags(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
                     std::vector<std::string> tags,
-                    std::vector<std::string> files);
+                    std::vector<std::string> files, std::string workingDir);
             static void removeTags(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
                     std::vector<std::string> tags,
-                    std::vector<std::string> files);
+                    std::vector<std::string> files, std::string workingDir);
             static void search(std::unordered_map<std::string,
                     std::vector<std::string>> tagDict,
                     std::vector<std::string> tags,

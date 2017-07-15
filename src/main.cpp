@@ -11,6 +11,12 @@
 #include <unordered_map>
 #include <vector>
 
+// Cstdlib includes
+#include <cstdio>
+
+// POSIX-native includes
+#include <unistd.h>
+
 // Local includes
 #include "Command.hpp"
 #include "helpers.hpp"
@@ -24,10 +30,16 @@
  *                      tiger.
  * @param argumentValues An array containing the command-line arguments
  *                       passed to tiger.
- * @return Exit code for the program (ideally 0).
+ * @return Exit code for the program (0 if successful exit).
  */
 
 int main(int argumentCount, char *argumentValues[]) {
+    // Get working dir
+    // TODO: use std::filesystem::currentpath when C++17 is more available
+    char workingDirCStr[FILENAME_MAX];
+    getcwd(workingDirCStr, FILENAME_MAX);
+    std::string workingDir(workingDirCStr);
+    
     // Get tag file, hash table of tags from tag file
     Tiger::TagFile tagFile;
     std::unordered_map<std::string, std::vector<std::string>>& tagDict =
@@ -44,12 +56,12 @@ int main(int argumentCount, char *argumentValues[]) {
     switch (command.getAction()) {
         case Tiger::Command::Action::ADD:
             Tiger::Operations::addTags(tagDict, command.getTags(),
-                    command.getFiles());
+                    command.getFiles(), workingDir);
             tagFile.close();
             break;
         case Tiger::Command::Action::REMOVE:
             Tiger::Operations::removeTags(tagDict, command.getTags(),
-                    command.getFiles());
+                    command.getFiles(), workingDir);
             tagFile.close();
             break;
         case Tiger::Command::Action::SEARCH:
