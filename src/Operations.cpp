@@ -21,17 +21,29 @@ namespace Tiger {
      * Converts a "short" file path to a full one, based on a current
      * working directory.
      *
-     * @param shortPath The short file path.
+     * @param shortPath The short file path. May also be a full one
+     *                  (differentiated by a forward-slash at the
+     *                  beginning, in which case no conversion is done).
      * @param workingDir The current working directory to base the
      *                   conversion on.
      * @return The resulting full file path.
      */
     std::string Operations::toFullPath(std::string shortPath,
             std::string workingDir) {
-        std::string fullPath;
-        // TODO: flesh this out
-        fullPath = workingDir + "/" + shortPath;
-        return fullPath;
+        // Return shortPath if it's already a full path (starts with root)
+        if (shortPath.at(0) == '/')
+            return shortPath;
+        
+        std::vector<std::string> fullPath;
+        std::string buffer;
+        
+        // TODO: handle "../" at start of file
+        // TODO: handle "./"
+        // TODO: handle "../" in middle of file
+        // TODO: handle "~/"
+        //if (shortPath.find("../") != std::string::npos)
+        
+        return "Not implemented yet";
     }
     
     /**

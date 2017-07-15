@@ -8,6 +8,10 @@
  * Any helper functions will be placed in the Tiger::Helpers namespace.
  */
 
+// Stdlib includes
+#include <iostream>
+#include <sstream>
+
 // Include own header
 #include "helpers.hpp"
 
@@ -29,6 +33,33 @@ namespace Tiger {
                 arguments.push_back(argumentValues[index]);
             
             return arguments;
+        }
+     
+        /**
+         * Reads the next string surrounded by a pair of a specified character,
+         * taking whitespace into account.
+         *
+         * @param stream The stream to read from.
+         * @param delimiter The delimiter that surrounds the string.
+         * @returns The string that was read.
+         */
+        std::string readDelimitedString(std::istream& stream, char delimiter) {
+            stream >> std::noskipws;
+            std::stringstream resultStream;
+            char nextChar;
+            
+            while (stream >> nextChar)
+                if (nextChar == delimiter)
+                    break;
+            
+            while (stream >> nextChar) {
+                if (nextChar == delimiter)
+                    break;
+                else
+                    resultStream << nextChar;
+            }
+            
+            return resultStream.str();
         }
     }
 }

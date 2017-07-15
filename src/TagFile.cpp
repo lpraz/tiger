@@ -12,42 +12,13 @@
 #include <sstream>
 
 // Local includes
+#include "helpers.hpp"
 #include "Operations.hpp"
 
 // Include own header
 #include "TagFile.hpp"
 
 namespace Tiger {
-    // private:
-    
-    /**
-     * Reads the next string found within a pair of double quotation
-     * marks ("), taking whitespace into account.
-     *
-     * @param stream The stream to read from.
-     * @returns The string that was read.
-     */
-    std::string TagFile::readQuotedString(std::istream& stream) {
-        stream >> std::noskipws;
-        std::stringstream resultStream;
-        char nextChar;
-        
-        while (stream >> nextChar)
-            if (nextChar == '"')
-                break;
-        
-        while (stream >> nextChar) {
-            if (nextChar == '"')
-                break;
-            else
-                resultStream << nextChar;
-        }
-        
-        return resultStream.str();
-    }
-    
-    // public:
-    
     /**
      * Initializes (constructs) a TagFile by reading its contents from
      * disk, if they exist.
@@ -62,12 +33,16 @@ namespace Tiger {
             return;
         
         while (tagFileInputStream.good()) {
-            std::string tag = readQuotedString(tagFileInputStream);
+            std::string tag = 
+                    Tiger::Helpers::readDelimitedString(tagFileInputStream,
+                    '"');
             std::vector<std::string> files;
             
             while (tagFileInputStream.peek() != '\n' &&
                     tagFileInputStream.good())
-                files.push_back(readQuotedString(tagFileInputStream));
+                files.push_back(
+                    Tiger::Helpers::readDelimitedString(tagFileInputStream,
+                    '"'));
             
             if (files.size() > 0)
                 tagDict.insert({tag, files});
