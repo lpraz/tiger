@@ -12,6 +12,11 @@
 // Stdlib includes
 #include <algorithm>
 #include <iostream>
+#include <istream>
+#include <sstream>
+
+// Local includes
+#include "helpers.hpp"
 
 // Include own header
 #include "Operations.hpp"
@@ -35,7 +40,11 @@ namespace Tiger {
             return shortPath;
         
         std::vector<std::string> fullPath;
-        std::string buffer;
+        
+        // TODO: stringstream that is also an istream, or do a conversion?
+        std::istringstream workingDirStream(workingDir);
+        while (workingDirStream.good())
+            fullPath.push_back(readDelimitedString(workingDirStream, '/'));
         
         // TODO: handle "../" at start of file
         // TODO: handle "./"
