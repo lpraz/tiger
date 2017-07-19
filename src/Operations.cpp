@@ -41,16 +41,24 @@ namespace Tiger {
         
         std::vector<std::string> fullPath;
         
-        // TODO: stringstream that is also an istream, or do a conversion?
+        // TODO: why doesn't workingDirStream cast to istream?
         std::istringstream workingDirStream(workingDir);
         while (workingDirStream.good())
             fullPath.push_back(readDelimitedString(workingDirStream, '/'));
         
-        // TODO: handle "../" at start of file
+        std::istringstream shortPathStream(shortPath);
+        while (shortPathStream.good()) {
+            std::string nextSubDir = readDelimitedString(shortPathStream, '/');
+            if (nextSubDir == "..")
+                fullPath.pop_back();
+            else if (nextSubDir != ".")
+                fullPath.push_back(nextSubDir);
+        }
+        
         // TODO: handle "./"
-        // TODO: handle "../" in middle of file
-        // TODO: handle "~/"
-        //if (shortPath.find("../") != std::string::npos)
+        // TODO: handle "~/" (get home directory)
+        
+        // TODO: reconstruct the full path
         
         return "Not implemented yet";
     }
