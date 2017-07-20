@@ -39,28 +39,54 @@ namespace Tiger {
         if (shortPath.at(0) == '/')
             return shortPath;
         
-        std::vector<std::string> fullPath;
+        // Otherwise, start by copying the working directory
+        std::vector<std::string> fullPathVector;
+        toVectorizedPath(workingDir, fullPathVector);
         
-        // TODO: why doesn't workingDirStream cast to istream?
-        std::istringstream workingDirStream(workingDir);
-        while (workingDirStream.good())
-            fullPath.push_back(readDelimitedString(workingDirStream, '/'));
-        
+        // Then, copy the short path in
         std::istringstream shortPathStream(shortPath);
+        bool firstDir = true;
+        
         while (shortPathStream.good()) {
             std::string nextSubDir = readDelimitedString(shortPathStream, '/');
-            if (nextSubDir == "..")
-                fullPath.pop_back();
-            else if (nextSubDir != ".")
-                fullPath.push_back(nextSubDir);
+            
+            if (nextSubDir == "..") {
+                fullPathVector.pop_back();
+            } else if (firstDir && nextSubDir == "~") {
+                std::vector<std::string> homePathVector;
+                std::string homeDir = getenv("HOME");
+                toVectorizedPath(homeDir, homePathVector);
+            } else if (nextSubDir != ".") {
+                fullPathVector.push_back(nextSubDir);
+            }
+            
+            if (firstDir = true)
+                firstDir = false;
         }
         
-        // TODO: handle "./"
-        // TODO: handle "~/" (get home directory)
+        // Reconstruct the full path
+        std::string fullPath;
+        for (std::string subDir : fullPathVector)
+            fullPath += "/" + subDir;
         
-        // TODO: reconstruct the full path
+        return fullPath;
+    }
+    
+    /*
+     * Converts a file path as a string to a vector, containing the
+     * subdirectories to take to the destination from the root
+     * directory.
+     *
+     * @param path The file path, as a string.
+     * @param The vector to copy the path into.
+     */
+    void Operations::toVectorizedPath(std::string path,
+            std::vector<std::string>& pathVector) {
+        std::istringstream pathStream(path);
         
-        return "Not implemented yet";
+        // TODO: why doesn't workingDirStream cast to istream?
+        while (pathStream.good())
+            pathVector.push_back(readDelimitedString(pathStream, '/'));
     }
     
     /**

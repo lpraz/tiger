@@ -22,6 +22,8 @@ namespace Tiger {
         private:
             static std::string toFullPath(std::string shortPath,
                     std::string workingDir);
+            static void toVectorizedPath(std::string path,
+                    std::vector<std::string>& pathVector);
             static void addTagToFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
                     std::string file, std::string workingDir);
