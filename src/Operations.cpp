@@ -44,25 +44,7 @@ namespace Tiger {
         toVectorizedPath(workingDir, fullPathVector);
         
         // Then, copy the short path in
-        std::istringstream shortPathStream(shortPath);
-        bool firstDir = true;
-        
-        while (shortPathStream.good()) {
-            std::string nextSubDir = readDelimitedString(shortPathStream, '/');
-            
-            if (nextSubDir == "..") {
-                fullPathVector.pop_back();
-            } else if (firstDir && nextSubDir == "~") {
-                std::vector<std::string> homePathVector;
-                std::string homeDir = getenv("HOME");
-                toVectorizedPath(homeDir, homePathVector);
-            } else if (nextSubDir != ".") {
-                fullPathVector.push_back(nextSubDir);
-            }
-            
-            if (firstDir = true)
-                firstDir = false;
-        }
+        toVectorizedPath(shortPath, fullPathVector);
         
         // Reconstruct the full path
         std::string fullPath;
@@ -83,10 +65,24 @@ namespace Tiger {
     void Operations::toVectorizedPath(std::string path,
             std::vector<std::string>& pathVector) {
         std::istringstream pathStream(path);
+        bool firstDir = true;
         
         // TODO: why doesn't workingDirStream cast to istream?
-        while (pathStream.good())
-            pathVector.push_back(readDelimitedString(pathStream, '/'));
+        while (pathStream.good()) {
+            std::string nextSubDir = readDelimitedString(pathStream, '/');
+            
+            if (nextSubDir == "..") {
+                pathVector.pop_back();
+            } else if (firstDir && nextSubDir == "~") {
+                pathVector.clear();
+                toVectorizedPath(getenv("HOME"), pathVector);
+            } else if (nextSubDir != ".") {
+                pathVector.push_back(nextSubDir);
+            }
+            
+            if (firstDir == true)
+                firstDir = false;
+        }
     }
     
     /**
