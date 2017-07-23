@@ -67,7 +67,7 @@ namespace Tiger {
         std::istringstream pathStream(path);
         bool firstDir = true;
         
-        // TODO: why doesn't workingDirStream cast to istream?
+        // TODO: why doesn't istringstream cast to istream?
         while (pathStream.good()) {
             std::string nextSubDir = readDelimitedString(pathStream, '/');
             

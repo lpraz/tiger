@@ -17,7 +17,7 @@ DOXYFILE = Doxyfile
 
 # Directories (install)
 PREFIX = /usr/bin/local
-INSTTARGET = bestfriend
+INSTTARGET = tiger
 
 # Extension
 SRCEXT = cpp
