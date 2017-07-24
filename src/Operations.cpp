@@ -12,7 +12,6 @@
 // Stdlib includes
 #include <algorithm>
 #include <iostream>
-#include <istream>
 #include <sstream>
 
 // Local includes
@@ -67,9 +66,9 @@ namespace Tiger {
         std::istringstream pathStream(path);
         bool firstDir = true;
         
-        // TODO: why doesn't istringstream cast to istream?
         while (pathStream.good()) {
-            std::string nextSubDir = readDelimitedString(pathStream, '/');
+            std::string nextSubDir =
+                    Tiger::Helpers::readDelimitedString(pathStream, '/');
             
             if (nextSubDir == "..") {
                 pathVector.pop_back();
