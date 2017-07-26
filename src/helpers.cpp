@@ -53,7 +53,7 @@ namespace Tiger {
                     break;
             
             while (stream >> nextChar) {
-                if (nextChar == delimiter)
+                if (!stream.good() || nextChar == delimiter)
                     break;
                 else
                     resultStream << nextChar;

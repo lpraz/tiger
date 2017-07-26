@@ -64,6 +64,7 @@ namespace Tiger {
     void Operations::toVectorizedPath(std::string path,
             std::vector<std::string>& pathVector) {
         std::istringstream pathStream(path);
+        // TODO: not reading in the last part?
         bool firstDir = true;
         
         while (pathStream.good()) {
@@ -98,13 +99,15 @@ namespace Tiger {
     void Operations::addTagToFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
             std::string file, std::string workingDir) {
+        std::string fullFile(toFullPath(file, workingDir));
+        
         if (tagDict.find(tag) == tagDict.end()) {
-            tagDict.insert({tag, std::vector<std::string> {file}});
+            tagDict.insert({tag, std::vector<std::string> {fullFile}});
         } else {
             auto filePosition = std::find(tagDict[tag].begin(),
-                    tagDict[tag].end(), file);
+                    tagDict[tag].end(), fullFile);
             if (filePosition == tagDict[tag].end())
-                tagDict[tag].push_back(file);
+                tagDict[tag].push_back(fullFile);
         }
     }
     
