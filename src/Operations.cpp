@@ -64,7 +64,6 @@ namespace Tiger {
     void Operations::toVectorizedPath(std::string path,
             std::vector<std::string>& pathVector) {
         std::istringstream pathStream(path);
-        // TODO: not reading in the last part?
         bool firstDir = true;
         
         while (pathStream.good()) {

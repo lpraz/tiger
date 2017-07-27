@@ -53,12 +53,14 @@ namespace Tiger {
                     break;
             
             while (stream >> nextChar) {
+                std::cout << resultStream.str() << "\n";
                 if (!stream.good() || nextChar == delimiter)
                     break;
                 else
                     resultStream << nextChar;
             }
             
+            stream.seekg(-1, stream.cur);
             return resultStream.str();
         }
     }
