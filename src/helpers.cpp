@@ -41,9 +41,13 @@ namespace Tiger {
          *
          * @param stream The stream to read from.
          * @param delimiter The delimiter that surrounds the string.
+         * @param reuse Whether the closing delimiter should be used as
+         *              the starting delimiter for the next read. If true,
+         *              the stream will be reversed one character.
          * @returns The string that was read.
          */
-        std::string readDelimitedString(std::istream& stream, char delimiter) {
+        std::string readDelimitedString(std::istream& stream, char delimiter,
+                bool reuse) {
             stream >> std::noskipws;
             std::stringstream resultStream;
             char nextChar;
@@ -53,14 +57,18 @@ namespace Tiger {
                     break;
             
             while (stream >> nextChar) {
-                std::cout << resultStream.str() << "\n";
-                if (!stream.good() || nextChar == delimiter)
+                if (nextChar == delimiter)
                     break;
-                else
-                    resultStream << nextChar;
+                
+                resultStream << nextChar;
+                
+                if (stream.eof())
+                    break;
             }
             
-            stream.seekg(-1, stream.cur);
+            if (reuse)
+                stream.seekg(-1, stream.cur);
+            
             return resultStream.str();
         }
     }

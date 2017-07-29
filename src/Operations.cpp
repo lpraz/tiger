@@ -68,7 +68,7 @@ namespace Tiger {
         
         while (pathStream.good()) {
             std::string nextSubDir =
-                    Tiger::Helpers::readDelimitedString(pathStream, '/');
+                    Tiger::Helpers::readDelimitedString(pathStream, '/', true);
             
             if (nextSubDir == "..") {
                 pathVector.pop_back();

@@ -35,14 +35,14 @@ namespace Tiger {
         while (tagFileInputStream.good()) {
             std::string tag = 
                     Tiger::Helpers::readDelimitedString(tagFileInputStream,
-                    '"');
+                    '"', false);
             std::vector<std::string> files;
             
             while (tagFileInputStream.peek() != '\n' &&
                     tagFileInputStream.good())
                 files.push_back(
                     Tiger::Helpers::readDelimitedString(tagFileInputStream,
-                    '"'));
+                    '"', false));
             
             if (files.size() > 0)
                 tagDict.insert({tag, files});
