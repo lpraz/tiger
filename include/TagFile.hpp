@@ -26,6 +26,8 @@ namespace Tiger {
             std::string homeDirectory;
             std::unordered_map<std::string, std::vector<std::string>>
                     tagDict;
+            
+            std::string readQuotedString(std::istream& stream);
         
         public:
             TagFile();

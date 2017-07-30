@@ -53,7 +53,7 @@ namespace Tiger {
         return fullPath;
     }
     
-    /*
+    /**
      * Converts a file path as a string to a vector, containing the
      * subdirectories to take to the destination from the root
      * directory.
@@ -67,8 +67,7 @@ namespace Tiger {
         bool firstDir = true;
         
         while (pathStream.good()) {
-            std::string nextSubDir =
-                    Tiger::Helpers::readDelimitedString(pathStream, '/', true);
+            std::string nextSubDir = readSubDirectory(pathStream);
             
             if (nextSubDir == "..") {
                 pathVector.pop_back();
@@ -82,6 +81,36 @@ namespace Tiger {
             if (firstDir == true)
                 firstDir = false;
         }
+    }
+    
+    /**
+     * Reads the next string in a stream starting at its current position
+     * and ending at the next forward slash ('/') or the EOF. Whitespace
+     * is not ignored, and if the string starts with a forward slash,
+     * it will be excluded.
+     * @param stream The stream to read from.
+     * @returns The string that was read.
+     */
+    std::string Operations::readSubDirectory(std::istream& stream) {
+        stream >> std::noskipws;
+        std::stringstream resultStream;
+        char nextChar;
+        bool firstChar(true);
+        
+        while (stream >> nextChar) {
+            if (nextChar == '/' && !firstChar)
+                break;
+            
+            if (nextChar != '/')
+                resultStream << nextChar;
+            
+            if (stream.eof())
+                break;
+            
+            firstChar = false;
+        }
+        
+        return resultStream.str();
     }
     
     /**

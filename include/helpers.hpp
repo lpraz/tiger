@@ -16,7 +16,5 @@ namespace Tiger {
     namespace Helpers {
         std::vector<std::string> convertArguments(int argumentCount,
                 char *argumentValues[]);
-        std::string readDelimitedString(std::istream& stream, char delimiter,
-                bool reuse);
     }
 }
