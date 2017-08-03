@@ -288,7 +288,7 @@ namespace Tiger {
                 "Alternate between specifying tags and files in your\n"
                 "arguments by using -t and -f, respectively.\n"
                 "Commands:\n"
-                "\thelp: Display this screen.\n"
+                "\thelp: Display this list.\n"
                 "\tadd: Add tag(s) to file(s).\n"
                 "\tremove: Remove tag(s) from file(s).\n"
                 "\tsearch: Look up files with a certain tag.\n"
