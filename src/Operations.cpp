@@ -14,6 +14,12 @@
 #include <iostream>
 #include <sstream>
 
+// Cstdlib includes
+#include <cstdio>
+
+// POSIX-native includes
+#include <unistd.h>
+
 // Local includes
 #include "helpers.hpp"
 
@@ -22,23 +28,26 @@
 
 namespace Tiger {
     /**
-     * Converts a "short" file path to a full one, based on a current
-     * working directory.
+     * Converts a "short" file path to a full one, based on the program's
+     * current working directory.
      *
      * @param shortPath The short file path. May also be a full one
      *                  (differentiated by a forward-slash at the
      *                  beginning, in which case no conversion is done).
-     * @param workingDir The current working directory to base the
-     *                   conversion on.
      * @return The resulting full file path.
      */
-    std::string Operations::toFullPath(std::string shortPath,
-            std::string workingDir) {
+    std::string Operations::toFullPath(std::string shortPath) {
         // Return shortPath if it's already a full path (starts with root)
         if (shortPath.at(0) == '/')
             return shortPath;
         
-        // Otherwise, start by copying the working directory
+        // Otherwise, start by getting the current working directory
+        // TODO: use std::filesystem::currentpath when C++17 is more available
+        char workingDirCStr[FILENAME_MAX];
+        getcwd(workingDirCStr, FILENAME_MAX);
+        std::string workingDir(workingDirCStr);
+        
+        // Copy working directory into vector
         std::vector<std::string> fullPathVector;
         toVectorizedPath(workingDir, fullPathVector);
         
@@ -126,8 +135,8 @@ namespace Tiger {
      */
     void Operations::addTagToFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
-            std::string file, std::string workingDir) {
-        std::string fullFile(toFullPath(file, workingDir));
+            std::string file) {
+        std::string fullFile(toFullPath(file));
         
         if (tagDict.find(tag) == tagDict.end()) {
             tagDict.insert({tag, std::vector<std::string> {fullFile}});
@@ -152,8 +161,8 @@ namespace Tiger {
      */
     void Operations::removeTagFromFile(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::string tag,
-            std::string file, std::string workingDir) {
-        std::string fullFile(toFullPath(file, workingDir));
+            std::string file) {
+        std::string fullFile(toFullPath(file));
         
         if (tagDict.find(tag) != tagDict.end()) {
             auto index = std::remove(tagDict[tag].begin(),
@@ -176,12 +185,12 @@ namespace Tiger {
      * @param command The command object containing the tags to be
      *                added, and the files to be tagged.
      */
-    void Operations::addTags(std::unordered_map<std::string,
+    void Operations::add(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
-            std::vector<std::string> files, std::string workingDir) {
+            std::vector<std::string> files) {
         for (auto file : files) {
             for (auto tag : tags) {
-                addTagToFile(tagDict, tag, file, workingDir);
+                addTagToFile(tagDict, tag, file);
             }
         }
     }
@@ -194,12 +203,12 @@ namespace Tiger {
      * @param command The command object containing the tags to be
      *                added, and the files to be tagged.
      */
-    void Operations::removeTags(std::unordered_map<std::string,
+    void Operations::remove(std::unordered_map<std::string,
             std::vector<std::string>>& tagDict, std::vector<std::string> tags,
-            std::vector<std::string> files, std::string workingDir) {
+            std::vector<std::string> files) {
         for (auto file : files) {
             for (auto tag : tags) {
-                removeTagFromFile(tagDict, tag, file, workingDir);
+                removeTagFromFile(tagDict, tag, file);
             }
         }
     }
@@ -260,7 +269,7 @@ namespace Tiger {
      *
      * @param tagDict The hash table of tags to output.
      */
-    void Operations::displayListOfTags(std::unordered_map<std::string,
+    void Operations::list(std::unordered_map<std::string,
             std::vector<std::string>> tagDict) {
         for (auto tag : tagDict) {
             std::cout << tag.first << ":\n\t";
@@ -282,7 +291,7 @@ namespace Tiger {
      * Called by the user with the "help" command, or by specifying
      * no command at all.
      */
-    void Operations::displayHelp(void) {
+    void Operations::help(void) {
         std::string helpText =
                 "tiger is a program for tagging and organizing files.\n"
                 "Alternate between specifying tags and files in your\n"

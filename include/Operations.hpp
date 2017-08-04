@@ -20,33 +20,32 @@
 namespace Tiger {
     class Operations {
         private:
-            static std::string toFullPath(std::string shortPath,
-                    std::string workingDir);
+            static std::string toFullPath(std::string shortPath);
             static void toVectorizedPath(std::string path,
                     std::vector<std::string>& pathVector);
             static std::string readSubDirectory(std::istream& stream);
             static void addTagToFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
-                    std::string file, std::string workingDir);
+                    std::string file);
             static void removeTagFromFile(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict, std::string tag,
-                    std::string file, std::string workingDir);
+                    std::string file);
         
         public:
-            static void addTags(std::unordered_map<std::string,
+            static void add(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
                     std::vector<std::string> tags,
-                    std::vector<std::string> files, std::string workingDir);
-            static void removeTags(std::unordered_map<std::string,
+                    std::vector<std::string> files);
+            static void remove(std::unordered_map<std::string,
                     std::vector<std::string>>& tagDict,
                     std::vector<std::string> tags,
-                    std::vector<std::string> files, std::string workingDir);
+                    std::vector<std::string> files);
             static void search(std::unordered_map<std::string,
                     std::vector<std::string>> tagDict,
                     std::vector<std::string> tags,
                     std::vector<std::string> files);
-            static void displayListOfTags(std::unordered_map<std::string,
+            static void list(std::unordered_map<std::string,
                     std::vector<std::string>> tagDict);
-            static void displayHelp(void);
+            static void help(void);
     };
 }
