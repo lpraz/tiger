@@ -225,37 +225,32 @@ namespace Tiger {
     void Operations::search(std::unordered_map<std::string,
             std::vector<std::string>> tagDict, std::vector<std::string> tags,
             std::vector<std::string> files) {
-        std::cout << "=== Tags ===\n";
-        for (auto tag : tags) {
-            std::cout << tag << ":\n\t";
-            
-            auto tagFiles = tagDict.find(tag);
-            if (tagFiles != tagDict.end()) {
-                for (auto tagFile = tagFiles->second.begin();
-                        tagFile != tagFiles->second.end(); tagFile++) {
-                    if (tagFile != tagFiles->second.begin())
-                        std::cout << "\n\t";
-                    
-                    std::cout << *tagFile;
-                }
+        if (tags.size() > 0) {
+            std::cout << "=== Tags ===\n";
+            for (auto tag : tags) {
+                std::cout << tag << ":";
+                auto tagFiles = tagDict.find(tag);
+                
+                if (tagFiles != tagDict.end())
+                    for (auto tagFile = tagFiles->second.begin();
+                            tagFile != tagFiles->second.end(); tagFile++)
+                        std::cout << "\n\t" << *tagFile;
             }
         }
         
-        std::cout << "=== Files ===\n";
-        for (auto file : files) {
-            std::cout << file << ":\n\t";
+        if (files.size() > 0) {
+            if (tags.size() > 0)
+                std::cout << "\n\n";
             
-            bool first = true;
-            for (auto tag : tagDict) {
-                if (std::find(tag.second.begin(), tag.second.end(),
-                        file) != tag.second.end()) {
-                    if (first)
-                        first = false;
-                    else
-                        std::cout << ",\n\t";
-                    
-                    std::cout << tag.first;
-                }
+            std::cout << "=== Files ===\n";
+            for (auto file : files) {
+                std::string fullFile(toFullPath(file));
+                std::cout << fullFile << ":";
+                
+                for (auto tag : tagDict)
+                    if (std::find(tag.second.begin(), tag.second.end(),
+                            fullFile) != tag.second.end())
+                        std::cout << "\n\t" << tag.first;
             }
         }
         
